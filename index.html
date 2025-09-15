@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aryan Classes Portal</title>
+  <title>Aryaan Classes</title>
   <style>
     body {
       font-family: "Poppins", sans-serif;
@@ -101,6 +101,12 @@
       font-size: 14px;
       margin-top: 10px;
     }
+    /* Dashboard Header */
+    #dashboard h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #667eea;
+    }
   </style>
 </head>
 <body>
@@ -117,18 +123,17 @@
   </div>
 
   <!-- Dashboard -->
-<div id="dashboard" class="page">
-  <div class="content-box">
-    <h2>Aryaan Classes</h2>
-    <div class="grid">
-      <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
-      <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
-      <div class="card" onclick="goPage('about')">ℹ️<br>About</div>
-      <div class="card" onclick="logout()">🚪<br>Logout</div>
+  <div id="dashboard" class="page">
+    <div class="content-box">
+      <h2>Aryaan Classes</h2>
+      <div class="grid">
+        <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
+        <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
+        <div class="card" onclick="goPage('about')">ℹ️<br>About</div>
+        <div class="card" onclick="logout()">🚪<br>Logout</div>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- Subjects Page -->
   <div id="subjects" class="page">
@@ -158,8 +163,8 @@
   <!-- About Page -->
   <div id="about" class="page">
     <div class="content-box">
-      <h3>ℹ️ About Aryan Classes</h3>
-      <p>Aryan Classes helps students excel with personalized tuition in Mathematics, Science, and English.</p>
+      <h3>ℹ️ About Aryaan Classes</h3>
+      <p>Aryaan Classes helps students excel with personalized tuition in Mathematics, Science, and English.</p>
       <p>📞 Contact: +91-9876543210</p>
       <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
     </div>
