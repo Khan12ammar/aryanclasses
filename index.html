@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>hh</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aryan Classes Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>.hidden { display: none; }</style>
+  <style>
+    .hidden { display: none; }
+  </style>
 </head>
 <body class="bg-gradient-to-tr from-indigo-500 to-cyan-300 min-h-screen">
 
@@ -22,161 +15,137 @@
   <div id="loginPage" class="flex items-center justify-center min-h-screen">
     <form id="loginForm" class="bg-white p-10 rounded-3xl shadow-2xl w-96 border-t-4 border-indigo-700">
       <h1 class="text-3xl font-extrabold mb-6 text-center text-indigo-800">Aryan Classes</h1>
-      <input type="text" placeholder="Email" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-4 focus:outline-none focus:border-indigo-500" required>
+      <input type="text" placeholder="Student ID" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-4 focus:outline-none focus:border-indigo-500" required>
       <input type="password" placeholder="Password" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-6 focus:outline-none focus:border-indigo-500" required>
       <button type="submit" class="w-full bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-800 transition duration-300">Login</button>
     </form>
   </div>
 
-  <!-- Dashboard -->
+  <!-- Dashboard Page -->
   <div id="dashboardPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
     <div class="bg-white shadow-xl sticky top-0 z-50">
       <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
         <h1 class="font-bold text-2xl text-indigo-800">Aryan Classes</h1>
         <nav class="flex gap-6 text-lg">
-          <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-          <a href="#" onclick="showPage('subjects')">Subjects</a>
-          <a href="#" onclick="showPage('fees')">Fees</a>
-          <a href="#" onclick="showPage('about')">About</a>
-          <a href="#" onclick="signOut()" class="text-red-600 font-semibold">Logout</a>
+          <a href="#" onclick="showPage('dashboard')" class="hover:text-indigo-600 transition duration-300">Dashboard</a>
+          <a href="#" onclick="showPage('subjects')" class="hover:text-indigo-600 transition duration-300">Subjects</a>
+          <a href="#" onclick="showPage('fees')" class="hover:text-indigo-600 transition duration-300">Fees</a>
+          <a href="#" onclick="showPage('about')" class="hover:text-indigo-600 transition duration-300">About</a>
+          <a href="#" onclick="logout()" class="hover:text-red-600 transition duration-300">Logout</a>
         </nav>
       </div>
     </div>
 
     <div class="max-w-4xl mx-auto p-8">
-      <h2 id="welcomeText" class="text-3xl font-bold mb-6 text-indigo-800">Welcome</h2>
+      <h2 id="welcomeMsg" class="text-3xl font-bold mb-6 text-indigo-800">Welcome</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div onclick="showPage('subjects')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-indigo-700">
+        <div onclick="showPage('subjects')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-indigo-700 hover:border-indigo-600">
           <h3 class="text-2xl font-bold">📘 Subjects</h3>
+          <p class="text-gray-700 mt-2">View notes & revision material.</p>
         </div>
-        <div onclick="showPage('fees')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-green-600">
+        <div onclick="showPage('fees')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-green-600 hover:border-green-500">
           <h3 class="text-2xl font-bold">💳 Fees</h3>
+          <p class="text-gray-700 mt-2">Check payment status.</p>
         </div>
-        <div onclick="showPage('about')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-blue-600">
+        <div onclick="showPage('about')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-blue-600 hover:border-blue-500">
           <h3 class="text-2xl font-bold">ℹ️ About</h3>
+          <p class="text-gray-700 mt-2">Know more about Aryan Classes.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Subjects Page -->
-  <div id="subjectsPage" class="hidden min-h-screen p-8">
-    <h2 class="text-3xl font-bold mb-6 text-indigo-800">📘 Subjects & Notes</h2>
-    <div class="bg-white p-6 rounded-2xl shadow mb-4">Maths: Algebra, Geometry, Trigonometry...</div>
-    <div class="bg-white p-6 rounded-2xl shadow mb-4">Science: Physics, Chemistry, Biology...</div>
-    <div class="bg-white p-6 rounded-2xl shadow mb-4">English: Grammar, Essay, Comprehension...</div>
+  <div id="subjectsPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+    <div class="max-w-4xl mx-auto p-8">
+      <h2 class="text-3xl font-bold mb-6 text-indigo-800">📘 Subjects & Notes</h2>
+      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
+        <h3 class="text-2xl font-semibold text-indigo-700">Maths</h3>
+        <p class="text-gray-700 mt-3 text-lg">Algebra, Geometry, Trigonometry basics...</p>
+      </div>
+      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
+        <h3 class="text-2xl font-semibold text-indigo-700">Science</h3>
+        <p class="text-gray-700 mt-3 text-lg">Laws of motion, Atoms, Human body systems...</p>
+      </div>
+      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
+        <h3 class="text-2xl font-semibold text-indigo-700">English</h3>
+        <p class="text-gray-700 mt-3 text-lg">Grammar, Essay writing, Comprehension...</p>
+      </div>
+    </div>
   </div>
 
   <!-- Fees Page -->
-  <div id="feesPage" class="hidden min-h-screen p-8">
-    <h2 class="text-3xl font-bold mb-6 text-indigo-800">💳 Fees Status</h2>
-    <div id="feesInfo" class="bg-white p-6 rounded-2xl shadow"></div>
+  <div id="feesPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+    <div class="max-w-4xl mx-auto p-8">
+      <h2 class="text-3xl font-bold mb-6 text-indigo-800">💳 Fees Status</h2>
+      <div class="bg-white p-8 rounded-3xl shadow-2xl border-l-8 border-green-600">
+        <p class="text-lg"><strong>Status:</strong> <span class="text-red-600 font-semibold">Pending</span></p>
+        <p class="text-lg mt-2"><strong>Amount:</strong> ₹2,000</p>
+        <p class="text-lg mt-2"><strong>Due Date:</strong> 30 Sept 2025</p>
+      </div>
+    </div>
   </div>
 
   <!-- About Page -->
-  <div id="aboutPage" class="hidden min-h-screen p-8">
-    <h2 class="text-3xl font-bold mb-6 text-indigo-800">ℹ️ About Aryan Classes</h2>
-    <p class="bg-white p-6 rounded-2xl shadow">
-      Aryan Classes is a trusted tuition center dedicated to helping students excel in academics.
-      We provide personalized coaching for Mathematics, Science, and English. Our mission is to make learning engaging, accessible, and effective for every student.
-      <br><br>
-      📍 Location: Mumbai, India<br>
-      📞 Contact: +91-9876543210<br>
-      📧 Email: info@aryanclasses.com
-    </p>
+  <div id="aboutPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+    <div class="max-w-4xl mx-auto p-8">
+      <h2 class="text-3xl font-bold mb-6 text-indigo-800">ℹ️ About Aryan Classes</h2>
+      <div class="bg-white p-8 rounded-3xl shadow-2xl border-l-8 border-blue-600">
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Aryan Classes is a trusted tuition center dedicated to helping students excel in academics. 
+          We provide personalized coaching for Mathematics, Science, and English. 
+          Our mission is to make learning engaging and effective for every student.
+        </p>
+        <p class="text-lg text-gray-700 mt-4">
+          📍 Location: Mumbai, India<br>
+          📞 Contact: +91-9876543210<br>
+          📧 Email: info@aryanclasses.com
+        </p>
+      </div>
+    </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
+    const users = {
+      "ammar": "ammar.1010"
+    };
+
     const loginPage = document.getElementById('loginPage');
     const dashboardPage = document.getElementById('dashboardPage');
     const subjectsPage = document.getElementById('subjectsPage');
     const feesPage = document.getElementById('feesPage');
     const aboutPage = document.getElementById('aboutPage');
-    const welcomeText = document.getElementById('welcomeText');
-    const feesInfo = document.getElementById('feesInfo');
+    const loginForm = document.getElementById('loginForm');
+    const welcomeMsg = document.getElementById('welcomeMsg');
 
-    // Ask for notifications
-    if('Notification' in window && Notification.permission !== 'granted') {
-      Notification.requestPermission();
-    }
-
-    // Demo users
-    const demoUsers = [
-      { email: 'reo12345678912', password: 'ammar.1010', name: 'Reo', fees: { status: 'Pending', amount: '₹2000', due: '30 Sept 2025' } }
-    ];
-    localStorage.setItem('aryan_demo_users', JSON.stringify(demoUsers));
-
-    function demoLogin(email, password) {
-      const users = JSON.parse(localStorage.getItem('aryan_demo_users') || '[]');
-      return users.find(u => u.email === email && u.password === password) || null;
-    }
-
-    function loadDashboard(user){
-      welcomeText.textContent = `Welcome, ${user.name}`;
-      feesInfo.innerHTML = `
-        <p><strong>Status:</strong> <span class="${user.fees.status === 'Pending' ? 'text-red-600' : 'text-green-600'}">${user.fees.status}</span></p>
-        <p><strong>Amount:</strong> ${user.fees.amount}</p>
-        <p><strong>Due Date:</strong> ${user.fees.due}</p>
-      `;
-
-      // Notify immediately if fees pending
-      if(user.fees.status === 'Pending' && Notification.permission === 'granted'){
-        new Notification('Aryan Classes', {
-          body: `Hello ${user.name}, your fees of ${user.fees.amount} is pending. Due date: ${user.fees.due}`,
-          icon: 'https://cdn-icons-png.flaticon.com/512/3081/3081737.png'
-        });
-      }
-
-      // Repeat notification every 24h (for demo, you can use 30000 ms = 30 sec)
-      setInterval(() => {
-        if(user.fees.status === 'Pending' && Notification.permission === 'granted'){
-          new Notification('Aryan Classes', {
-            body: `Reminder: ${user.name}, your fees of ${user.fees.amount} is still pending!`,
-            icon: 'https://cdn-icons-png.flaticon.com/512/3081/3081737.png'
-          });
-        }
-      }, 86400000); // 86400000 ms = 24 hours
-    }
-
-    // One-time login check
-    const currentUser = JSON.parse(localStorage.getItem('aryan_current_user') || 'null');
-    if(currentUser){
-      loginPage.classList.add('hidden');
-      dashboardPage.classList.remove('hidden');
-      loadDashboard(currentUser);
-    }
-
-    // Login form
-    document.getElementById('loginForm').addEventListener('submit', function(e){
+    loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const email = e.target.querySelector('input[type="text"]').value.trim();
-      const password = e.target.querySelector('input[type="password"]').value.trim();
-      const user = demoLogin(email, password);
+      const id = loginForm.querySelector("input[type='text']").value.trim();
+      const pass = loginForm.querySelector("input[type='password']").value.trim();
 
-      if(!user){
-        alert('❌ Incorrect Email or Password.');
-        return;
+      if (users[id] && users[id] === pass) {
+        loginPage.classList.add('hidden');
+        dashboardPage.classList.remove('hidden');
+        welcomeMsg.innerText = "Welcome, " + id;
+      } else {
+        alert("Incorrect Student ID or Password!");
       }
-
-      localStorage.setItem('aryan_current_user', JSON.stringify(user));
-      loginPage.classList.add('hidden');
-      dashboardPage.classList.remove('hidden');
-      loadDashboard(user);
     });
 
-    function showPage(page){
+    function showPage(page) {
       dashboardPage.classList.add('hidden');
       subjectsPage.classList.add('hidden');
       feesPage.classList.add('hidden');
       aboutPage.classList.add('hidden');
-      if(page==='dashboard') dashboardPage.classList.remove('hidden');
-      if(page==='subjects') subjectsPage.classList.remove('hidden');
-      if(page==='fees') feesPage.classList.remove('hidden');
-      if(page==='about') aboutPage.classList.remove('hidden');
+
+      if (page === 'dashboard') dashboardPage.classList.remove('hidden');
+      if (page === 'subjects') subjectsPage.classList.remove('hidden');
+      if (page === 'fees') feesPage.classList.remove('hidden');
+      if (page === 'about') aboutPage.classList.remove('hidden');
     }
 
-    function signOut(){
-      localStorage.removeItem('aryan_current_user');
+    function logout() {
       dashboardPage.classList.add('hidden');
       subjectsPage.classList.add('hidden');
       feesPage.classList.add('hidden');
@@ -184,11 +153,7 @@
       loginPage.classList.remove('hidden');
     }
   </script>
-</body>
-  <link rel="manifest" href="https://your-live-site.com/manifest.json">
 
-</html>
-<!-- partial -->
-  
 </body>
 </html>
+
