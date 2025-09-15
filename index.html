@@ -174,9 +174,10 @@
     function login(){
       const email = document.getElementById('username').value.trim();
       const pass = document.getElementById('password').value.trim();
-      const user = demoUsers.find(u => u.email === email && u.password === pass);
+      const user = demoUsers.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === pass);
 
       if(user){
+        document.getElementById('errorMsg').innerText = "";
         goPage('dashboard');
       } else {
         document.getElementById('errorMsg').innerText = "❌ Incorrect ID or Password!";
@@ -186,6 +187,14 @@
     function logout(){
       goPage('loginPage');
     }
+
+    // Support Enter key for login
+    document.getElementById('password').addEventListener('keypress', function(e){
+      if(e.key === 'Enter') login();
+    });
+    document.getElementById('username').addEventListener('keypress', function(e){
+      if(e.key === 'Enter') login();
+    });
   </script>
 </body>
 </html>
