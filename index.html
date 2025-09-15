@@ -6,58 +6,100 @@
   <title>Aryan Classes Portal</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Poppins", sans-serif;
       margin: 0; padding: 0;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
     }
     .page {
       display: none;
+      min-height: 100vh;
       padding: 20px;
     }
     .active {
-      display: block;
-    }
-    .login-box {
-      max-width: 320px;
-      margin: 100px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .login-box h2 { text-align: center; }
-    .login-box input, .login-box button {
-      width: 100%;
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 20px;
-      max-width: 500px;
-      margin: 40px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .card {
       background: #fff;
-      border-radius: 12px;
-      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 25px;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      cursor: pointer;
       transition: transform 0.2s;
+      cursor: pointer;
     }
-    .card:hover { transform: scale(1.05); }
+    .card:hover { transform: translateY(-5px); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+    .login-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      width: 320px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #667eea;
+    }
+    .login-box input {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #667eea;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .login-box button:hover {
+      background: #5a67d8;
+    }
+    .content-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 500px;
+      text-align: left;
+    }
     .back-btn {
+      display: inline-block;
+      margin-top: 20px;
       background: #ff6600;
       color: #fff;
-      border: none;
-      border-radius: 8px;
       padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
       cursor: pointer;
-      margin-top: 20px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #e65c00;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -66,45 +108,57 @@
   <!-- Login Page -->
   <div id="loginPage" class="page active">
     <div class="login-box">
-      <h2>Login</h2>
-      <input type="text" id="username" placeholder="Email">
+      <h2>🔑 Student Login</h2>
+      <input type="text" id="username" placeholder="Student ID">
       <input type="password" id="password" placeholder="Password">
       <button onclick="login()">Login</button>
-      <p id="errorMsg" style="color:red;text-align:center;"></p>
+      <p id="errorMsg" class="error"></p>
     </div>
   </div>
 
   <!-- Dashboard -->
   <div id="dashboard" class="page">
-    <div class="dashboard">
-      <div class="card" onclick="goPage('subjects')">📘 Subjects</div>
-      <div class="card" onclick="goPage('fees')">💰 Fees</div>
-      <div class="card" onclick="goPage('about')">ℹ️ About</div>
-      <div class="card" onclick="logout()">🚪 Logout</div>
+    <div class="grid">
+      <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
+      <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
+      <div class="card" onclick="goPage('about')">ℹ️<br>About</div>
+      <div class="card" onclick="logout()">🚪<br>Logout</div>
     </div>
   </div>
 
   <!-- Subjects Page -->
   <div id="subjects" class="page">
-    <ul>
-      <li>Mathematics</li>
-      <li>Science</li>
-      <li>English</li>
-      <li>Social Studies</li>
-    </ul>
-    <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    <div class="content-box">
+      <h3>📘 Subjects</h3>
+      <ul>
+        <li>Mathematics</li>
+        <li>Science</li>
+        <li>English</li>
+        <li>Social Studies</li>
+      </ul>
+      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    </div>
   </div>
 
   <!-- Fees Page -->
   <div id="fees" class="page">
-    <p>Status: <b>Pending</b></p>
-    <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    <div class="content-box">
+      <h3>💰 Fees</h3>
+      <p>Status: <b style="color:red;">Pending</b></p>
+      <p>Amount: ₹2000</p>
+      <p>Due Date: 30 Sept 2025</p>
+      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    </div>
   </div>
 
   <!-- About Page -->
   <div id="about" class="page">
-    <p>Aryan Classes is a trusted tuition center helping students excel in academics.</p>
-    <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    <div class="content-box">
+      <h3>ℹ️ About Aryan Classes</h3>
+      <p>Aryan Classes helps students excel with personalized tuition in Mathematics, Science, and English.</p>
+      <p>📞 Contact: +91-9876543210</p>
+      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
+    </div>
   </div>
 
   <script>
@@ -125,7 +179,7 @@
       if(user){
         goPage('dashboard');
       } else {
-        document.getElementById('errorMsg').innerText = "Incorrect ID or Password!";
+        document.getElementById('errorMsg').innerText = "❌ Incorrect ID or Password!";
       }
     }
 
