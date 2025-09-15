@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aryan Classes Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    .hidden { display: none; }
-  </style>
+  <style>.hidden{display:none;}</style>
 </head>
 <body class="bg-gradient-to-tr from-indigo-500 to-cyan-300 min-h-screen">
 
@@ -15,9 +13,10 @@
   <div id="loginPage" class="flex items-center justify-center min-h-screen">
     <form id="loginForm" class="bg-white p-10 rounded-3xl shadow-2xl w-96 border-t-4 border-indigo-700">
       <h1 class="text-3xl font-extrabold mb-6 text-center text-indigo-800">Aryan Classes</h1>
-      <input type="text" placeholder="student name" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-4 focus:outline-none focus:border-indigo-500" required>
-      <input type="password" placeholder="Password" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-6 focus:outline-none focus:border-indigo-500" required>
+      <input id="studentId" type="text" placeholder="Student ID" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-4 focus:outline-none focus:border-indigo-500" required>
+      <input id="password" type="password" placeholder="Password" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-6 focus:outline-none focus:border-indigo-500" required>
       <button type="submit" class="w-full bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-800 transition duration-300">Login</button>
+      <p id="errorMsg" class="text-red-600 text-center mt-4 hidden">❌ Incorrect ID or Password</p>
     </form>
   </div>
 
@@ -27,27 +26,27 @@
       <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
         <h1 class="font-bold text-2xl text-indigo-800">Aryan Classes</h1>
         <nav class="flex gap-6 text-lg">
-          <a href="#" onclick="showPage('dashboard')" class="hover:text-indigo-600 transition duration-300">Dashboard</a>
-          <a href="#" onclick="showPage('subjects')" class="hover:text-indigo-600 transition duration-300">Subjects</a>
-          <a href="#" onclick="showPage('fees')" class="hover:text-indigo-600 transition duration-300">Fees</a>
-          <a href="#" onclick="showPage('about')" class="hover:text-indigo-600 transition duration-300">About</a>
-          <a href="#" onclick="logout()" class="hover:text-red-600 transition duration-300">Logout</a>
+          <a href="#" onclick="showPage('dashboard')" class="hover:text-indigo-600">Dashboard</a>
+          <a href="#" onclick="showPage('subjects')" class="hover:text-indigo-600">Subjects</a>
+          <a href="#" onclick="showPage('fees')" class="hover:text-indigo-600">Fees</a>
+          <a href="#" onclick="showPage('about')" class="hover:text-indigo-600">About</a>
+          <a href="#" onclick="logout()" class="text-red-600 font-bold">Logout</a>
         </nav>
       </div>
     </div>
 
     <div class="max-w-4xl mx-auto p-8">
-      <h2 id="welcomeMsg" class="text-3xl font-bold mb-6 text-indigo-800">Welcome</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div onclick="showPage('subjects')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-indigo-700 hover:border-indigo-600">
+      <h2 class="text-3xl font-bold mb-6 text-indigo-800">Welcome, Saad</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div onclick="showPage('subjects')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-indigo-700 hover:border-indigo-600">
           <h3 class="text-2xl font-bold">📘 Subjects</h3>
-          <p class="text-gray-700 mt-2">View notes & revision material.</p>
+          <p class="text-gray-700 mt-2">View your notes & revision material.</p>
         </div>
-        <div onclick="showPage('fees')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-green-600 hover:border-green-500">
+        <div onclick="showPage('fees')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-green-600 hover:border-green-500">
           <h3 class="text-2xl font-bold">💳 Fees</h3>
-          <p class="text-gray-700 mt-2">Check payment status.</p>
+          <p class="text-gray-700 mt-2">Check payment status & due date.</p>
         </div>
-        <div onclick="showPage('about')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 border-l-8 border-blue-600 hover:border-blue-500">
+        <div onclick="showPage('about')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-blue-600 hover:border-blue-500">
           <h3 class="text-2xl font-bold">ℹ️ About</h3>
           <p class="text-gray-700 mt-2">Know more about Aryan Classes.</p>
         </div>
@@ -94,7 +93,7 @@
         <p class="text-lg text-gray-700 leading-relaxed">
           Aryan Classes is a trusted tuition center dedicated to helping students excel in academics. 
           We provide personalized coaching for Mathematics, Science, and English. 
-          Our mission is to make learning engaging and effective for every student.
+          Our mission is to make learning engaging, accessible, and effective.
         </p>
         <p class="text-lg text-gray-700 mt-4">
           📍 Location: Mumbai, India<br>
@@ -105,31 +104,25 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script>
-    const users = {
-      "u": "u"
-    };
-
     const loginPage = document.getElementById('loginPage');
     const dashboardPage = document.getElementById('dashboardPage');
     const subjectsPage = document.getElementById('subjectsPage');
     const feesPage = document.getElementById('feesPage');
     const aboutPage = document.getElementById('aboutPage');
-    const loginForm = document.getElementById('loginForm');
-    const welcomeMsg = document.getElementById('welcomeMsg');
+    const errorMsg = document.getElementById('errorMsg');
 
-    loginForm.addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const id = loginForm.querySelector("input[type='text']").value.trim();
-      const pass = loginForm.querySelector("input[type='password']").value.trim();
+      const id = document.getElementById('studentId').value.trim();
+      const pass = document.getElementById('password').value.trim();
 
-      if (users[id] && users[id] === pass) {
+      if (id === "reo12345678912" && pass === "ammar.1010") {
         loginPage.classList.add('hidden');
         dashboardPage.classList.remove('hidden');
-        welcomeMsg.innerText = "Welcome, " + id;
+        errorMsg.classList.add('hidden');
       } else {
-        alert("Incorrect Student ID or Password!");
+        errorMsg.classList.remove('hidden');
       }
     });
 
@@ -156,4 +149,3 @@
 
 </body>
 </html>
-
