@@ -1,108 +1,98 @@
+<!-- Aryan Classes — Working Portal -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aryan Classes Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>.hidden{display:none;}</style>
+  <style>
+    .hidden{display:none}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+  </style>
 </head>
 <body class="bg-gradient-to-tr from-indigo-500 to-cyan-300 min-h-screen">
 
-  <!-- Login Page -->
-  <div id="loginPage" class="flex items-center justify-center min-h-screen">
+  <!-- LOGIN PAGE -->
+  <main id="loginPage" class="min-h-screen flex items-center justify-center">
     <form id="loginForm" class="bg-white p-10 rounded-3xl shadow-2xl w-96 border-t-4 border-indigo-700">
       <h1 class="text-3xl font-extrabold mb-6 text-center text-indigo-800">Aryan Classes</h1>
+
       <input id="studentId" type="text" placeholder="Student ID" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-4 focus:outline-none focus:border-indigo-500" required>
       <input id="password" type="password" placeholder="Password" class="w-full border-2 border-gray-300 p-3 rounded-xl mb-6 focus:outline-none focus:border-indigo-500" required>
-      <button type="submit" class="w-full bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-800 transition duration-300">Login</button>
-      <p id="errorMsg" class="text-red-600 text-center mt-4 hidden">❌ Incorrect ID or Password</p>
-    </form>
-  </div>
 
-  <!-- Dashboard Page -->
-  <div id="dashboardPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
-    <div class="bg-white shadow-xl sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
-        <h1 class="font-bold text-2xl text-indigo-800">Aryan Classes</h1>
+      <button type="submit" class="w-full bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-800 transition">Login</button>
+
+      <p id="errorMsg" class="text-red-600 text-center mt-4 hidden">❌ Incorrect ID or Password</p>
+      <p class="text-sm text-center text-gray-500 mt-4">Demo account: <strong>reo12345678912</strong> / <strong>ammar.1010</strong></p>
+    </form>
+  </main>
+
+  <!-- DASHBOARD -->
+  <section id="dashboardPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+    <header class="bg-white shadow sticky top-0 z-50">
+      <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <h1 class="font-bold text-2xl text-indigo-800">Aryan Classes</h1>
+          <span id="userClass" class="text-sm text-gray-500"></span>
+        </div>
         <nav class="flex gap-6 text-lg">
-          <a href="#" onclick="showPage('dashboard')" class="hover:text-indigo-600">Dashboard</a>
-          <a href="#" onclick="showPage('subjects')" class="hover:text-indigo-600">Subjects</a>
-          <a href="#" onclick="showPage('fees')" class="hover:text-indigo-600">Fees</a>
-          <a href="#" onclick="showPage('about')" class="hover:text-indigo-600">About</a>
-          <a href="#" onclick="logout()" class="text-red-600 font-bold">Logout</a>
+          <button onclick="showPage('dashboard')" class="hover:text-indigo-600">Dashboard</button>
+          <button onclick="showPage('subjects')" class="hover:text-indigo-600">Subjects</button>
+          <button onclick="showPage('fees')" class="hover:text-indigo-600">Fees</button>
+          <button onclick="showPage('about')" class="hover:text-indigo-600">About</button>
+          <button onclick="signOut()" class="text-red-600 font-semibold">Logout</button>
         </nav>
       </div>
-    </div>
+    </header>
 
     <div class="max-w-4xl mx-auto p-8">
-      <h2 class="text-3xl font-bold mb-6 text-indigo-800">Welcome, Saad</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div onclick="showPage('subjects')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-indigo-700 hover:border-indigo-600">
-          <h3 class="text-2xl font-bold">📘 Subjects</h3>
-          <p class="text-gray-700 mt-2">View your notes & revision material.</p>
+      <h2 id="welcomeText" class="text-3xl font-bold mb-6 text-indigo-800">Welcome</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div onclick="showPage('subjects')" class="cursor-pointer p-6 bg-white rounded-2xl shadow hover:shadow-lg border-l-4 border-indigo-600">
+          <h3 class="text-xl font-semibold">📘 Subjects</h3>
+          <p class="text-gray-600 mt-2">View notes & revision material</p>
         </div>
-        <div onclick="showPage('fees')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-green-600 hover:border-green-500">
-          <h3 class="text-2xl font-bold">💳 Fees</h3>
-          <p class="text-gray-700 mt-2">Check payment status & due date.</p>
+
+        <div onclick="showPage('fees')" class="cursor-pointer p-6 bg-white rounded-2xl shadow hover:shadow-lg border-l-4 border-green-500">
+          <h3 class="text-xl font-semibold">💳 Fees</h3>
+          <p class="text-gray-600 mt-2">Check payment status & due date</p>
         </div>
-        <div onclick="showPage('about')" class="cursor-pointer p-8 bg-white rounded-3xl shadow-2xl border-l-8 border-blue-600 hover:border-blue-500">
-          <h3 class="text-2xl font-bold">ℹ️ About</h3>
-          <p class="text-gray-700 mt-2">Know more about Aryan Classes.</p>
+
+        <div onclick="showPage('about')" class="cursor-pointer p-6 bg-white rounded-2xl shadow hover:shadow-lg border-l-4 border-blue-500">
+          <h3 class="text-xl font-semibold">ℹ️ About</h3>
+          <p class="text-gray-600 mt-2">Learn more about Aryan Classes</p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Subjects Page -->
-  <div id="subjectsPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+  <!-- SUBJECTS -->
+  <section id="subjectsPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
     <div class="max-w-4xl mx-auto p-8">
       <h2 class="text-3xl font-bold mb-6 text-indigo-800">📘 Subjects & Notes</h2>
-      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
-        <h3 class="text-2xl font-semibold text-indigo-700">Maths</h3>
-        <p class="text-gray-700 mt-3 text-lg">Algebra, Geometry, Trigonometry basics...</p>
-      </div>
-      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
-        <h3 class="text-2xl font-semibold text-indigo-700">Science</h3>
-        <p class="text-gray-700 mt-3 text-lg">Laws of motion, Atoms, Human body systems...</p>
-      </div>
-      <div class="bg-white p-8 rounded-3xl shadow-2xl mb-6 border-l-8 border-indigo-600">
-        <h3 class="text-2xl font-semibold text-indigo-700">English</h3>
-        <p class="text-gray-700 mt-3 text-lg">Grammar, Essay writing, Comprehension...</p>
-      </div>
+      <div id="subjectsList" class="space-y-6"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- Fees Page -->
-  <div id="feesPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+  <!-- FEES -->
+  <section id="feesPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
     <div class="max-w-4xl mx-auto p-8">
       <h2 class="text-3xl font-bold mb-6 text-indigo-800">💳 Fees Status</h2>
-      <div class="bg-white p-8 rounded-3xl shadow-2xl border-l-8 border-green-600">
-        <p class="text-lg"><strong>Status:</strong> <span class="text-red-600 font-semibold">Pending</span></p>
-        <p class="text-lg mt-2"><strong>Amount:</strong> ₹2,000</p>
-        <p class="text-lg mt-2"><strong>Due Date:</strong> 30 Sept 2025</p>
-      </div>
+      <div id="feesInfo" class="bg-white p-6 rounded-2xl shadow"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- About Page -->
-  <div id="aboutPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+  <!-- ABOUT -->
+  <section id="aboutPage" class="hidden min-h-screen bg-gradient-to-b from-indigo-50 to-white">
     <div class="max-w-4xl mx-auto p-8">
       <h2 class="text-3xl font-bold mb-6 text-indigo-800">ℹ️ About Aryan Classes</h2>
-      <div class="bg-white p-8 rounded-3xl shadow-2xl border-l-8 border-blue-600">
-        <p class="text-lg text-gray-700 leading-relaxed">
-          Aryan Classes is a trusted tuition center dedicated to helping students excel in academics. 
-          We provide personalized coaching for Mathematics, Science, and English. 
-          Our mission is to make learning engaging, accessible, and effective.
-        </p>
-        <p class="text-lg text-gray-700 mt-4">
-          📍 Location: Mumbai, India<br>
-          📞 Contact: +91-9876543210<br>
-          📧 Email: info@aryanclasses.com
-        </p>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <p class="text-gray-700">Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English. Contact: +91-9876543210 | info@aryanclasses.com</p>
       </div>
     </div>
-  </div>
+  </section>
 
   <script>
     const loginPage = document.getElementById('loginPage');
@@ -111,41 +101,104 @@
     const feesPage = document.getElementById('feesPage');
     const aboutPage = document.getElementById('aboutPage');
     const errorMsg = document.getElementById('errorMsg');
+    const welcomeText = document.getElementById('welcomeText');
+    const userClassEl = document.getElementById('userClass');
+    const subjectsList = document.getElementById('subjectsList');
+    const feesInfo = document.getElementById('feesInfo');
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    // Demo users
+    const demoUsers = [
+      {
+        id: 'reo12345678912',
+        password: 'ammar.1010',
+        name: 'Reo',
+        class: '10th',
+        fees: { status: 'Pending', amount: '₹2,000', due: '30 Sept 2025' },
+        subjects: {
+          Maths: 'Algebra, Geometry, Trigonometry basics...',
+          Science: 'Laws of motion, Atoms, Human body systems...',
+          English: 'Grammar, Essay writing, Comprehension...'
+        }
+      }
+    ];
+
+    localStorage.setItem('aryan_demo_users', JSON.stringify(demoUsers));
+
+    function getUsers(){
+      return JSON.parse(localStorage.getItem('aryan_demo_users') || '[]');
+    }
+
+    function findUser(id, password){
+      const users = getUsers();
+      return users.find(u => u.id === id && u.password === password) || null;
+    }
+
+    function loadDashboard(user){
+      welcomeText.textContent = `Welcome, ${user.name}`;
+      userClassEl.textContent = user.class ? `• ${user.class}` : '';
+
+      subjectsList.innerHTML = '';
+      Object.entries(user.subjects || {}).forEach(([sub, notes])=>{
+        const card = document.createElement('div');
+        card.className = 'bg-white p-6 rounded-2xl shadow mb-4 border-l-4 border-indigo-500';
+        card.innerHTML = `<h3 class="text-xl font-semibold text-indigo-700">${sub}</h3><p class="text-gray-700 mt-2">${notes}</p>`;
+        subjectsList.appendChild(card);
+      });
+
+      feesInfo.innerHTML = `
+        <p><strong>Status:</strong> <span class="${user.fees.status === 'Pending' ? 'text-red-600' : 'text-green-600'} font-semibold">${user.fees.status}</span></p>
+        <p class="mt-2"><strong>Amount:</strong> ${user.fees.amount}</p>
+        <p class="mt-2"><strong>Due Date:</strong> ${user.fees.due}</p>
+      `;
+
+      localStorage.setItem('aryan_current_user', JSON.stringify(user));
+
+      loginPage.classList.add('hidden');
+      dashboardPage.classList.remove('hidden');
+      subjectsPage.classList.add('hidden');
+      feesPage.classList.add('hidden');
+      aboutPage.classList.add('hidden');
+    }
+
+    const existingUser = JSON.parse(localStorage.getItem('aryan_current_user') || 'null');
+    if(existingUser){
+      const fresh = getUsers().find(u=>u.id === existingUser.id) || existingUser;
+      loadDashboard(fresh);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e){
       e.preventDefault();
       const id = document.getElementById('studentId').value.trim();
       const pass = document.getElementById('password').value.trim();
-
-      if (id === "reo" && pass === "reo") {
-        loginPage.classList.add('hidden');
-        dashboardPage.classList.remove('hidden');
-        errorMsg.classList.add('hidden');
-      } else {
+      const user = findUser(id, pass);
+      if(!user){
         errorMsg.classList.remove('hidden');
+        return;
       }
+      errorMsg.classList.add('hidden');
+      loadDashboard(user);
     });
 
-    function showPage(page) {
+    function showPage(page){
       dashboardPage.classList.add('hidden');
       subjectsPage.classList.add('hidden');
       feesPage.classList.add('hidden');
       aboutPage.classList.add('hidden');
 
-      if (page === 'dashboard') dashboardPage.classList.remove('hidden');
-      if (page === 'subjects') subjectsPage.classList.remove('hidden');
-      if (page === 'fees') feesPage.classList.remove('hidden');
-      if (page === 'about') aboutPage.classList.remove('hidden');
+      if(page === 'dashboard') dashboardPage.classList.remove('hidden');
+      if(page === 'subjects') subjectsPage.classList.remove('hidden');
+      if(page === 'fees') feesPage.classList.remove('hidden');
+      if(page === 'about') aboutPage.classList.remove('hidden');
     }
 
-    function logout() {
+    function signOut(){
+      localStorage.removeItem('aryan_current_user');
+      loginPage.classList.remove('hidden');
       dashboardPage.classList.add('hidden');
       subjectsPage.classList.add('hidden');
       feesPage.classList.add('hidden');
       aboutPage.classList.add('hidden');
-      loginPage.classList.remove('hidden');
     }
   </script>
-
 </body>
 </html>
