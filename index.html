@@ -6,15 +6,13 @@
   <title>Aryaan Classes</title>
   <style>
     body {
+      margin: 0;
       font-family: "Poppins", sans-serif;
-      margin: 0; padding: 0;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #333;
     }
     .page {
       display: none;
       min-height: 100vh;
-      padding: 20px;
+      width: 100%;
     }
     .active {
       display: flex;
@@ -22,27 +20,29 @@
       align-items: center;
       justify-content: flex-start;
     }
+    /* Header bar */
     .header-bar {
       width: 100%;
-      background: #667eea;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: #fff;
       text-align: center;
-      padding: 15px 0;
-      font-size: 24px;
+      padding: 60px 0;
+      font-size: 36px;
       font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      position: fixed;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: sticky;
       top: 0;
-      left: 0;
       z-index: 100;
     }
+    /* Dashboard cards */
     .dashboard-content {
-      margin-top: 80px; /* give space for fixed header */
+      margin-top: 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
-      width: 100%;
-      max-width: 500px;
+      width: 90%;
+      max-width: 700px;
+      padding-bottom: 40px;
     }
     .card {
       background: #fff;
@@ -50,10 +50,15 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       padding: 25px;
       text-align: center;
-      transition: transform 0.2s;
+      font-size: 18px;
       cursor: pointer;
+      transition: transform 0.2s;
+      color: #333;
     }
-    .card:hover { transform: translateY(-5px); }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    /* Login and content boxes */
     .login-box, .content-box {
       background: #fff;
       padding: 30px;
@@ -62,12 +67,9 @@
       text-align: center;
       max-width: 500px;
       width: 100%;
+      margin-top: 50px;
     }
-    .login-box h2 {
-      margin-bottom: 20px;
-      color: #667eea;
-    }
-    input {
+    .login-box input {
       width: 100%;
       margin: 8px 0;
       padding: 12px;
@@ -76,7 +78,7 @@
       outline: none;
       font-size: 14px;
     }
-    button {
+    .login-box button, .back-btn {
       width: 100%;
       padding: 12px;
       border: none;
@@ -86,25 +88,24 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
+      margin-top: 10px;
     }
-    button:hover { background: #5a67d8; }
+    .login-box button:hover, .back-btn:hover {
+      background: #5a67d8;
+    }
     .back-btn {
       display: inline-block;
-      margin-top: 20px;
-      background: #ff6600;
-      color: #fff;
+      width: auto;
       padding: 10px 20px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
+      background: #ff6600;
     }
-    .back-btn:hover { background: #e65c00; }
     .error {
       color: red;
       font-size: 14px;
       margin-top: 10px;
+    }
+    ul {
+      text-align: left;
     }
   </style>
 </head>
@@ -122,17 +123,15 @@
   </div>
 
   <!-- Dashboard -->
-  <!-- Dashboard -->
-<div id="dashboard" class="page">
-  <div class="header-bar">Aryaan Classes</div>
-  <div class="dashboard-content">
-    <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
-    <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
-    <div class="card" onclick="goPage('about')">ℹ️<br>About</div>
-    <div class="card" onclick="logout()">🚪<br>Logout</div>
+  <div id="dashboard" class="page">
+    <div class="header-bar">Aryaan Classes</div>
+    <div class="dashboard-content">
+      <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
+      <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
+      <div class="card" onclick="goPage('about')">ℹ️<br>About</div>
+      <div class="card" onclick="logout()">🚪<br>Logout</div>
+    </div>
   </div>
-</div>
-
 
   <!-- Subjects Page -->
   <div id="subjects" class="page">
@@ -196,7 +195,7 @@
       goPage('loginPage');
     }
 
-    // Support Enter key for login
+    // Enter key support
     document.getElementById('password').addEventListener('keypress', function(e){
       if(e.key === 'Enter') login();
     });
