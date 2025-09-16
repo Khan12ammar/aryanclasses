@@ -1,233 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aryan Classes Portal</title>
   <style>
     body {
-      font-family: "Poppins", sans-serif;
-      margin: 0; padding: 0;
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: #fff;
-      color: #333;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .page {
       display: none;
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       padding: 20px;
     }
     .active {
-      display: flex;
+      display: block;
     }
     .title-bar {
       text-align: center;
-      margin: 20px 0;
-      width: 100%;
+      padding: 20px 10px;
+      background: #667eea;  /* purple header */
+      color: #fff;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .title-bar h1 {
       margin: 0;
       font-size: 26px;
-      color: #667eea;
     }
     .title-bar p {
       margin: 5px 0 0;
       font-size: 16px;
-      color: #444;
+      font-weight: 500;
     }
-    .card {
-      background: #667eea;
-      color: #fff;
-      border-radius: 12px;
-      padding: 16px;
+    .btn {
+      display: block;
+      width: 100%;
       margin: 10px 0;
-      text-align: center;
+      padding: 15px;
       font-size: 18px;
       font-weight: bold;
-      width: 100%;
-      max-width: 400px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-    }
-    .card:hover {
-      transform: scale(1.02);
-      background: #5a67d8;
-    }
-    .login-box {
-      background: #f9f9f9;
-      padding: 30px;
-      border-radius: 20px;
-      width: 320px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .login-box h2 {
-      margin-bottom: 20px;
-      color: #667eea;
-    }
-    .login-box input {
-      width: 100%;
-      margin: 8px 0;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #ccc;
-      outline: none;
-      font-size: 14px;
-    }
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 12px;
       background: #667eea;
-      color: #fff;
-      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    .login-box button:hover {
-      background: #5a67d8;
-    }
-    .content-box {
-      background: #f9f9f9;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      max-width: 500px;
-      text-align: left;
-      width: 100%;
+    .btn:hover {
+      background: #5563d6;
     }
     .back-btn {
-      display: inline-block;
       margin-top: 20px;
-      background: #ff6600;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .back-btn:hover {
-      background: #e65c00;
-    }
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 10px;
+      background: #ccc;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <!-- Login Page -->
-  <div id="loginPage" class="page active" style="justify-content:center;">
-    <div class="login-box">
-      <h2>🔑 Student Login</h2>
-      <input type="text" id="username" placeholder="Student ID">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="login()">Login</button>
-      <p id="errorMsg" class="error"></p>
+  <!-- LOGIN PAGE -->
+  <div id="loginPage" class="page active">
+    <div class="title-bar">
+      <h1>Aryan Classes</h1>
+      <p>Welcome back!</p>
     </div>
+    <form id="loginForm" style="margin-top:40px;text-align:center;">
+      <input type="text" id="studentId" placeholder="Student ID"><br><br>
+      <input type="password" id="password" placeholder="Password"><br><br>
+      <button type="submit" class="btn">Login</button>
+      <p id="errorMsg" style="color:red;display:none;">❌ Incorrect ID or Password</p>
+      <p style="font-size:14px;">Demo: <b>reo12345678912</b> / <b>ammar.1010</b></p>
+    </form>
   </div>
 
-  <!-- Dashboard -->
-  <div id="dashboard" class="page">
+  <!-- DASHBOARD -->
+  <div id="dashboardPage" class="page">
     <div class="title-bar">
       <h1>Aryan Classes</h1>
       <p id="greeting"></p>
     </div>
-    <div style="width:100%; max-width:400px;">
-      <div class="card" onclick="goPage('subjects')">📘 Subjects</div>
-      <div class="card" onclick="goPage('fees')">💰 Fees</div>
-      <div class="card" onclick="goPage('about')">ℹ️ About</div>
-      <div class="card" onclick="logout()">🚪 Logout</div>
-    </div>
+    <button class="btn" onclick="showPage('subjectsPage')">📘 Subjects</button>
+    <button class="btn" onclick="showPage('feesPage')">💳 Fees</button>
+    <button class="btn" onclick="showPage('aboutPage')">ℹ️ About</button>
+    <button class="btn" onclick="signOut()">🚪 Logout</button>
   </div>
 
-  <!-- Subjects Page -->
-  <div id="subjects" class="page">
+  <!-- SUBJECTS -->
+  <div id="subjectsPage" class="page">
     <div class="title-bar">
-      <h1>Aryan Classes</h1>
-      <p id="greeting"></p>
+      <h1>📘 Subjects</h1>
+      <p>Study material & notes</p>
     </div>
-    <div class="content-box">
-      <h3>📘 Subjects</h3>
-      <ul>
-        <li>Mathematics</li>
-        <li>Science</li>
-        <li>English</li>
-        <li>Social Studies</li>
-      </ul>
-      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
-    </div>
+    <div id="subjectsList"></div>
+    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
   </div>
 
-  <!-- Fees Page -->
-  <div id="fees" class="page">
+  <!-- FEES -->
+  <div id="feesPage" class="page">
     <div class="title-bar">
-      <h1>Aryan Classes</h1>
-      <p id="greeting"></p>
+      <h1>💳 Fees</h1>
+      <p>Your payment details</p>
     </div>
-    <div class="content-box">
-      <h3>💰 Fees</h3>
-      <p>Status: <b style="color:red;">Pending</b></p>
-      <p>Amount: ₹2000</p>
-      <p>Due Date: 30 Sept 2025</p>
-      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
-    </div>
+    <div id="feesInfo"></div>
+    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
   </div>
 
-  <!-- About Page -->
-  <div id="about" class="page">
+  <!-- ABOUT -->
+  <div id="aboutPage" class="page">
     <div class="title-bar">
-      <h1>Aryan Classes</h1>
-      <p id="greeting"></p>
+      <h1>ℹ️ About</h1>
+      <p>Learn more about Aryan Classes</p>
     </div>
-    <div class="content-box">
-      <h3>ℹ️ About Aryan Classes</h3>
-      <p>Aryan Classes helps students excel with personalized tuition in Mathematics, Science, and English.</p>
-      <p>📞 Contact: +91-9876543210</p>
-      <button class="back-btn" onclick="goPage('dashboard')">⬅ Back</button>
-    </div>
+    <p>Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English.<br>
+    Contact: +91-9876543210 | info@aryanclasses.com</p>
+    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
   </div>
 
   <script>
     const demoUsers = [
-      {email: "reo12345678912", password: "ammar.1010"}
+      {
+        id: 'reo12345678912',
+        password: 'ammar.1010',
+        name: 'Reo',
+        class: '10th',
+        fees: { status: 'Pending', amount: '₹2,000', due: '30 Sept 2025' },
+        subjects: {
+          Maths: 'Algebra, Geometry, Trigonometry basics...',
+          Science: 'Laws of motion, Atoms, Human body systems...',
+          English: 'Grammar, Essay writing, Comprehension...'
+        }
+      }
     ];
 
-    function goPage(id){
+    function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
-    function login(){
-      const email = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value.trim();
-      const user = demoUsers.find(u => u.email === email && u.password === pass);
-
-      if(user){
-        document.querySelectorAll('#greeting').forEach(el=>{
-          el.innerText = "Welcome, " + email + " 👋";
-        });
-        goPage('dashboard');
-      } else {
-        document.getElementById('errorMsg').innerText = "❌ Incorrect ID or Password!";
+    function loadDashboard(user) {
+      document.getElementById('greeting').textContent = `Welcome, ${user.name} (${user.class})`;
+      const subs = document.getElementById('subjectsList');
+      subs.innerHTML = '';
+      for (let s in user.subjects) {
+        subs.innerHTML += `<h3>${s}</h3><p>${user.subjects[s]}</p><hr>`;
       }
+      document.getElementById('feesInfo').innerHTML = `
+        <p><b>Status:</b> ${user.fees.status}</p>
+        <p><b>Amount:</b> ${user.fees.amount}</p>
+        <p><b>Due:</b> ${user.fees.due}</p>
+      `;
+      showPage('dashboardPage');
     }
 
-    function logout(){
-      goPage('loginPage');
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const id = document.getElementById('studentId').value;
+      const pass = document.getElementById('password').value;
+      const user = demoUsers.find(u => u.id === id && u.password === pass);
+      if (user) {
+        document.getElementById('errorMsg').style.display = 'none';
+        loadDashboard(user);
+      } else {
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    });
+
+    function signOut() {
+      showPage('loginPage');
     }
   </script>
+
 </body>
 </html>
