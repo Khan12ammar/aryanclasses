@@ -22,9 +22,24 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
     .active {
       display: flex;
+    }
+    .title-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .title-bar h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #fff;
+    }
+    .title-bar p {
+      margin: 5px 0 0;
+      font-size: 16px;
+      color: #f0f0f0;
     }
     .card {
       background: #fff;
@@ -124,6 +139,10 @@
 
   <!-- Dashboard -->
   <div id="dashboard" class="page">
+    <div class="title-bar">
+      <h1>Aryan Classes</h1>
+      <p id="greeting"></p>
+    </div>
     <div class="grid">
       <div class="card" onclick="goPage('subjects')">📘<br>Subjects</div>
       <div class="card" onclick="goPage('fees')">💰<br>Fees</div>
@@ -183,6 +202,7 @@
       const user = demoUsers.find(u => u.email === email && u.password === pass);
 
       if(user){
+        document.getElementById('greeting').innerText = "Welcome, " + email + " 👋";
         goPage('dashboard');
       } else {
         document.getElementById('errorMsg').innerText = "❌ Incorrect ID or Password!";
