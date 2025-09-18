@@ -7,8 +7,9 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #ffff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f9fafb;
+      color: #111827;
     }
     .page {
       display: none;
@@ -20,44 +21,56 @@
     .title-bar {
       text-align: center;
       padding: 20px 10px;
-      background: #003cff;  /* navy blue */
+      background: linear-gradient(135deg, #2563eb, #1e40af); /* Royal blue gradient */
       color: #fff;
       border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .title-bar h1 {
       margin: 0;
       font-size: 26px;
+      font-weight: bold;
     }
     .title-bar p {
       margin: 5px 0 0;
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 15px;
     }
     .btn {
       display: block;
       width: 100%;
-      margin: 10px 0;
+      margin: 12px 0;
       padding: 15px;
       font-size: 18px;
       font-weight: bold;
-      background:  #a13203; /* teal */
+      background: #2563eb; /* Primary blue */
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     }
     .btn:hover {
-      background: #0d5f59;
+      background: #1e40af; /* darker blue */
+      transform: translateY(-2px);
     }
     .back-btn {
-      margin-top: 20px;
-      background: #e5e7eb; /* light gray */
-      color: #111827; /* dark gray text */
+      background: #f59e0b; /* Accent amber */
+      color: white;
     }
     .back-btn:hover {
-      background: #d1d5db;
+      background: #d97706;
+    }
+    .card {
+      background: #fff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    }
+    .card h3 {
+      margin: 0 0 5px;
+      color: #2563eb;
     }
   </style>
 </head>
@@ -116,8 +129,10 @@
       <h1>ℹ️ About</h1>
       <p>Learn more about Aryan Classes</p>
     </div>
-    <p>Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English.<br>
-    Contact: +91-9876543210 | info@aryanclasses.com</p>
+    <div class="card">
+      <p>Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English.<br>
+      Contact: +91-9876543210 | info@aryanclasses.com</p>
+    </div>
     <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
   </div>
 
@@ -147,12 +162,14 @@
       const subs = document.getElementById('subjectsList');
       subs.innerHTML = '';
       for (let s in user.subjects) {
-        subs.innerHTML += `<h3>${s}</h3><p>${user.subjects[s]}</p><hr>`;
+        subs.innerHTML += `<div class="card"><h3>${s}</h3><p>${user.subjects[s]}</p></div>`;
       }
       document.getElementById('feesInfo').innerHTML = `
-        <p><b>Status:</b> ${user.fees.status}</p>
-        <p><b>Amount:</b> ${user.fees.amount}</p>
-        <p><b>Due:</b> ${user.fees.due}</p>
+        <div class="card">
+          <p><b>Status:</b> ${user.fees.status}</p>
+          <p><b>Amount:</b> ${user.fees.amount}</p>
+          <p><b>Due:</b> ${user.fees.due}</p>
+        </div>
       `;
       showPage('dashboardPage');
     }
