@@ -6,218 +6,158 @@
 <title>Aryan Classes Portal</title>
 <style>
 :root{
-  --primary:#0f766e; --primary-dark:#0b5e57; --accent:#f59e0b;
-  --accent-dark:#d97706; --muted:#374151; --danger:#ef4444;
-  --bg:#ffffff; --panel:#fbfdff; --card-border:rgba(15,118,110,0.12);
+  --primary:#0f766e; --accent:#f59e0b; --muted:#374151; --bg:#fff;
+  --panel:#fbfdff; --card-border:rgba(15,118,110,0.12);
 }
-*{box-sizing:border-box;}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--muted);min-height:100vh;}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--muted);}
 .page{display:none;padding:0 16px 32px;}
 .active{display:block;}
-.title-bar{text-align:center;padding:18px 12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border-radius:0 0 14px 14px;position:sticky;top:0;z-index:10;}
-.title-bar h1{margin:0;font-size:20px;font-weight:700;}
-.title-bar p{margin:6px 0 0;font-size:13px;opacity:.95;}
-.center-wrap{min-height:calc(100vh - 86px);display:flex;align-items:center;justify-content:center;}
-.card{width:100%;max-width:420px;background:var(--panel);border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(15,23,42,0.06);border:1px solid var(--card-border);}
-input[type="text"],input[type="password"],textarea,select{width:100%;padding:12px 14px;margin-bottom:12px;border-radius:10px;border:1px solid #e6eef0;font-size:15px;outline:none;}
-input:focus,textarea:focus,select:focus{border-color:var(--primary);}
-.btn{display:block;width:100%;padding:14px 16px;border-radius:12px;border:2px solid transparent;font-weight:700;font-size:16px;cursor:pointer;margin-top:6px;}
-.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary-dark);}
-.btn-primary:hover{background:var(--primary-dark);}
-.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent-dark);}
-.btn-accent:hover{background:var(--accent-dark);}
-.btn-muted{background:#111827;color:#fff;border-color:#0b1220;}
-.btn-muted:hover{background:#0b1220;}
-.btn-danger{background:var(--danger);color:#fff;border-color:#b91c1c;}
-.btn-danger:hover{background:#dc2626;}
-.stack{max-width:420px;margin:20px auto;display:flex;flex-direction:column;gap:12px;padding:0 6px;}
-.content-card{background:#fff;padding:14px;border-radius:12px;border:1px solid var(--card-border);margin-bottom:12px;word-wrap:break-word;}
-.content-card h3{margin:0 0 8px;color:var(--primary);font-size:16px;}
-.remark{background:#fff7ed;border:1px solid rgba(245,158,11,0.16);padding:12px;border-radius:10px;color:#92400e;margin-bottom:10px;word-wrap:break-word;}
-.small{font-size:13px;color:#6b7280;margin-top:8px;}
-.error{color:var(--danger);font-weight:600;margin-top:10px;text-align:center;}
+.title-bar{text-align:center;padding:18px 12px;background:var(--primary);color:white;}
+.title-bar h1{margin:0;}
+.card{width:100%;max-width:420px;background:var(--panel);border-radius:12px;padding:22px;margin:20px auto;}
+input,select,textarea{width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid #ccc;}
+button{width:100%;padding:12px;margin-bottom:8px;border-radius:8px;border:none;color:white;cursor:pointer;}
+.btn-primary{background:var(--primary);}
+.btn-accent{background:var(--accent);}
+.btn-danger{background:#ef4444;}
 .hidden{display:none;}
+.stack{max-width:420px;margin:20px auto;display:flex;flex-direction:column;gap:10px;}
+.content-card{background:#fff;padding:12px;border:1px solid var(--card-border);border-radius:8px;margin-bottom:10px;}
+.remark{background:#fff7ed;padding:10px;border-radius:8px;margin-bottom:6px;}
 </style>
 </head>
 <body>
 
 <!-- Login Page -->
 <div id="loginPage" class="page active">
-  <div class="title-bar"><h1>Aryan Classes</h1><p>Student / Admin Portal</p></div>
-  <div class="center-wrap">
-    <div class="card">
-      <h2 style="color:var(--primary);margin-bottom:8px;">Login</h2>
-      <form id="loginForm">
-        <input type="text" id="loginId" placeholder="ID" required>
-        <input type="password" id="loginPass" placeholder="Password" required>
-        <button class="btn btn-primary" type="submit">Login</button>
-        <div id="loginError" class="error hidden">❌ Incorrect ID or Password</div>
-      </form>
-      <div class="small" style="text-align:center;margin-top:12px;">
-        Students:<br>
-        <strong>test-1 / test123</strong><br>
-        Admin:<br>
-        <strong>reo12345678912 / ammar.1010</strong>
-      </div>
-    </div>
+  <div class="title-bar"><h1>Aryan Classes</h1></div>
+  <div class="card">
+    <input type="text" id="loginId" placeholder="ID">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button id="loginBtn" class="btn-primary">Login</button>
+    <div id="loginError" class="hidden" style="color:red;">Wrong ID or Password</div>
+    <p>Students: test-1 / test123 | Admin: reo12345678912 / ammar.1010</p>
   </div>
 </div>
 
-<!-- Student Dashboard -->
+<!-- Dashboard -->
 <div id="dashboardPage" class="page">
-  <div class="title-bar"><h1>Aryan Classes</h1><p id="greeting">Welcome</p></div>
+  <div class="title-bar"><h1>Dashboard</h1><p id="greeting"></p></div>
   <div class="stack">
-    <button class="btn btn-accent" id="btnSubjects">📘 Subjects</button>
-    <button class="btn btn-primary" id="btnFees">💳 Fees</button>
-    <button class="btn btn-muted" id="btnRemarks">📝 Remarks</button>
-    <button class="btn btn-accent hidden" id="btnAdminPanel">⚙️ Admin Panel</button>
-    <button class="btn btn-danger" id="btnLogout">🚪 Logout</button>
+    <button id="btnSubjects" class="btn-accent">📘 Subjects</button>
+    <button id="btnFees" class="btn-primary">💳 Fees</button>
+    <button id="btnRemarks" class="btn-primary">📝 Remarks</button>
+    <button id="btnAdmin" class="btn-accent hidden">⚙️ Admin Panel</button>
+    <button id="btnLogout" class="btn-danger">Logout</button>
   </div>
 </div>
 
 <!-- Subjects Page -->
 <div id="subjectsPage" class="page">
-  <div class="title-bar"><h1>📘 Subjects</h1></div>
-  <div class="stack" id="subjectsList"></div>
-  <button class="btn btn-primary" id="backSubjects">⬅ Back</button>
+  <div class="title-bar"><h1>Subjects</h1></div>
+  <div id="subjectsList" class="stack"></div>
+  <button id="backSubjects" class="btn-primary">Back</button>
 </div>
 
 <!-- Fees Page -->
 <div id="feesPage" class="page">
-  <div class="title-bar"><h1>💳 Fees</h1></div>
-  <div class="stack" id="feesInfo"></div>
-  <button class="btn btn-primary" id="backFees">⬅ Back</button>
+  <div class="title-bar"><h1>Fees</h1></div>
+  <div id="feesList" class="stack"></div>
+  <button id="backFees" class="btn-primary">Back</button>
 </div>
 
 <!-- Remarks Page -->
 <div id="remarksPage" class="page">
-  <div class="title-bar"><h1>📝 Remarks</h1></div>
-  <div class="stack" id="remarksList"></div>
-  <button class="btn btn-primary" id="backRemarks">⬅ Back</button>
+  <div class="title-bar"><h1>Remarks</h1></div>
+  <div id="remarksList" class="stack"></div>
+  <button id="backRemarks" class="btn-primary">Back</button>
 </div>
 
-<!-- Admin Dashboard -->
-<div id="adminDashboard" class="page">
+<!-- Admin Panel -->
+<div id="adminPage" class="page">
   <div class="title-bar"><h1>Admin Panel</h1></div>
   <div class="stack">
     <select id="studentSelect"><option value="">Select Student</option></select>
-
-    <div class="card">
-      <h3>Update Fees</h3>
-      <input id="feeStatus" placeholder="Status (Paid / Pending)">
-      <input id="feeAmount" placeholder="Amount">
-      <input id="feeDue" placeholder="Due Date">
-      <button class="btn btn-primary" id="updateFeeBtn">Update Fees</button>
-    </div>
-
-    <div class="card">
-      <h3>Add Remark</h3>
-      <textarea id="newRemark" placeholder="Enter remark"></textarea>
-      <button class="btn btn-accent" id="addRemarkBtn">Add Remark</button>
-    </div>
-
-    <div class="card">
-      <h3>Update Subjects</h3>
-      <input id="subName" placeholder="Subject Name">
-      <textarea id="subDesc" placeholder="Description"></textarea>
-      <button class="btn btn-primary" id="updateSubBtn">Update Subject</button>
-    </div>
-
-    <button class="btn btn-danger" id="adminBack">⬅ Back to Dashboard</button>
+    <input id="feeStatus" placeholder="Fee Status">
+    <input id="feeAmount" placeholder="Fee Amount">
+    <input id="feeDue" placeholder="Due Date">
+    <textarea id="newRemark" placeholder="Add Remark"></textarea>
+    <input id="subName" placeholder="Subject Name">
+    <textarea id="subDesc" placeholder="Subject Description"></textarea>
+    <button id="updateBtn" class="btn-primary">Update Student</button>
+    <button id="backAdmin" class="btn-danger">Back</button>
   </div>
 </div>
 
 <script>
-let users = JSON.parse(localStorage.getItem('users')) || [
-  {id:'reo12345678912',password:'ammar.1010',name:'Reo',class:'10th',admin:true,fees:{status:'Pending',amount:'₹2000',due:'30 Sept 2025'},subjects:{Maths:'Algebra',Science:'Physics',English:'Composition'},remarks:['Good progress']},
-  {id:'test-1',password:'test123',name:'Test User',class:'9th',admin:false,fees:{status:'Paid',amount:'₹1500',due:'N/A'},subjects:{Maths:'Geometry',Science:'Chemistry',English:'Grammar'},remarks:['Needs improvement in Science']}
+// Users
+let users = [
+  {id:'reo12345678912', password:'ammar.1010', name:'Reo', class:'10th', admin:true, fees:{status:'Pending',amount:'₹2000',due:'30 Sept'}, subjects:{Maths:'Algebra',Science:'Physics'}, remarks:['Good progress']},
+  {id:'test-1', password:'test123', name:'Test User', class:'9th', admin:false, fees:{status:'Paid',amount:'₹1500',due:'N/A'}, subjects:{Maths:'Geometry',Science:'Chemistry'}, remarks:['Needs improvement']}
 ];
-localStorage.setItem('users',JSON.stringify(users));
-
 let currentUser = null;
 
-const loginPage = document.getElementById('loginPage');
-const dashboard = document.getElementById('dashboardPage');
-const subjectsPage = document.getElementById('subjectsPage');
-const feesPage = document.getElementById('feesPage');
-const remarksPage = document.getElementById('remarksPage');
-const adminDashboard = document.getElementById('adminDashboard');
+// Elements
+const loginPage=document.getElementById('loginPage');
+const dashboardPage=document.getElementById('dashboardPage');
+const subjectsPageElem=document.getElementById('subjectsPage');
+const feesPageElem=document.getElementById('feesPage');
+const remarksPageElem=document.getElementById('remarksPage');
+const adminPageElem=document.getElementById('adminPage');
 
-function showPage(page){[loginPage,dashboard,subjectsPage,feesPage,remarksPage,adminDashboard].forEach(p=>p.classList.remove('active'));page.classList.add('active');}
+function show(page){[loginPage,dashboardPage,subjectsPageElem,feesPageElem,remarksPageElem,adminPageElem].forEach(p=>p.classList.remove('active')); page.classList.add('active');}
 
 // Login
-document.getElementById('loginForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const id=document.getElementById('loginId').value.trim();
-  const pass=document.getElementById('loginPass').value.trim();
+document.getElementById('loginBtn').onclick=()=>{
+  const id=document.getElementById('loginId').value;
+  const pass=document.getElementById('loginPass').value;
   const user = users.find(u=>u.id===id && u.password===pass);
-  if(!user){document.getElementById('loginError').classList.remove('hidden');return;}
-  currentUser = user; document.getElementById('loginError').classList.add('hidden');
-  loadStudentDashboard();
-  showPage(dashboard);
-});
-
-function loadStudentDashboard(){
-  document.getElementById('greeting').textContent=`Welcome, ${currentUser.name} • ${currentUser.class}`;
-  document.getElementById('btnAdminPanel').classList.toggle('hidden',!currentUser.admin);
-}
-
-// Dashboard buttons
-document.getElementById('btnSubjects').addEventListener('click',()=>{
-  const list = document.getElementById('subjectsList'); list.innerHTML='';
-  for(const [k,v] of Object.entries(currentUser.subjects)){ const d=document.createElement('div'); d.className='content-card'; d.innerHTML=`<h3>${k}</h3><p>${v}</p>`; list.appendChild(d);}
-  showPage(subjectsPage);
-});
-document.getElementById('btnFees').addEventListener('click',()=>{
-  const f = document.getElementById('feesInfo'); f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
-  showPage(feesPage);
-});
-document.getElementById('btnRemarks').addEventListener('click',()=>{
-  const r=document.getElementById('remarksList'); r.innerHTML=''; currentUser.remarks.forEach(rem=>{const d=document.createElement('div');d.className='remark';d.textContent=rem;r.appendChild(d);}); showPage(remarksPage);
-});
-document.getElementById('btnAdminPanel').addEventListener('click',()=>{
-  loadAdminStudents(); showPage(adminDashboard);
-});
-
-// Back buttons
-document.getElementById('backSubjects').addEventListener('click',()=>showPage(dashboard));
-document.getElementById('backFees').addEventListener('click',()=>showPage(dashboard));
-document.getElementById('backRemarks').addEventListener('click',()=>showPage(dashboard));
-document.getElementById('adminBack').addEventListener('click',()=>showPage(dashboard));
+  if(!user){document.getElementById('loginError').classList.remove('hidden'); return;}
+  currentUser=user;
+  document.getElementById('loginError').classList.add('hidden');
+  document.getElementById('greeting').innerText=`Welcome, ${currentUser.name}`;
+  document.getElementById('btnAdmin').classList.toggle('hidden',!currentUser.admin);
+  show(dashboardPage);
+};
 
 // Logout
-document.getElementById('btnLogout').addEventListener('click',()=>{
-  currentUser=null; document.getElementById('loginForm').reset(); showPage(loginPage);
-});
+document.getElementById('btnLogout').onclick=()=>{currentUser=null; show(loginPage);};
 
-// Admin Panel functions
-function loadAdminStudents(){
+// Dashboard buttons
+document.getElementById('btnSubjects').onclick=()=>{
+  const list=document.getElementById('subjectsList'); list.innerHTML='';
+  for(const [k,v] of Object.entries(currentUser.subjects)){const d=document.createElement('div');d.className='content-card'; d.innerHTML=`<h3>${k}</h3><p>${v}</p>`; list.appendChild(d);}
+  show(subjectsPageElem);
+};
+document.getElementById('btnFees').onclick=()=>{
+  const list=document.getElementById('feesList'); list.innerHTML=`<div class="content-card"><p>Status: ${currentUser.fees.status}</p><p>Amount: ${currentUser.fees.amount}</p><p>Due: ${currentUser.fees.due}</p></div>`;
+  show(feesPageElem);
+};
+document.getElementById('btnRemarks').onclick=()=>{
+  const list=document.getElementById('remarksList'); list.innerHTML=''; currentUser.remarks.forEach(r=>{const d=document.createElement('div');d.className='remark';d.textContent=r; list.appendChild(d);}); show(remarksPageElem);
+};
+document.getElementById('btnAdmin').onclick=()=>{
   const sel=document.getElementById('studentSelect'); sel.innerHTML='<option value="">Select Student</option>';
   users.forEach((u,i)=>{const o=document.createElement('option'); o.value=i; o.textContent=`${u.name} (${u.id})`; sel.appendChild(o);});
-  clearAdminFields();
-}
-function clearAdminFields(){['feeStatus','feeAmount','feeDue','newRemark','subName','subDesc'].forEach(id=>document.getElementById(id).value='');}
-document.getElementById('studentSelect').addEventListener('change',function(){
-  const idx=this.value; if(idx===''){clearAdminFields();return;}
-  const s=users[idx]; document.getElementById('feeStatus').value=s.fees.status;
-  document.getElementById('feeAmount').value=s.fees.amount; document.getElementById('feeDue').value=s.fees.due;
-});
-document.getElementById('updateFeeBtn').addEventListener('click',()=>{
-  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
-  users[idx].fees={status:document.getElementById('feeStatus').value,amount:document.getElementById('feeAmount').value,due:document.getElementById('feeDue').value};
-  localStorage.setItem('users',JSON.stringify(users)); alert('Fees updated!');
-});
-document.getElementById('addRemarkBtn').addEventListener('click',()=>{
-  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
-  const r=document.getElementById('newRemark').value.trim(); if(!r){alert('Enter remark');return;}
-  users[idx].remarks.push(r); localStorage.setItem('users',JSON.stringify(users)); document.getElementById('newRemark').value=''; alert('Remark added!');
-});
-document.getElementById('updateSubBtn').addEventListener('click',()=>{
-  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
-  const n=document.getElementById('subName').value.trim(); const d=document.getElementById('subDesc').value.trim();
-  if(!n||!d){alert('Enter subject & description');return;}
-  users[idx].subjects[n]=d; localStorage.setItem('users',JSON.stringify(users)); document.getElementById('subName').value=''; document.getElementById('subDesc').value=''; alert('Subject updated!');
-});
+  show(adminPageElem);
+};
+
+// Back buttons
+document.getElementById('backSubjects').onclick=()=>show(dashboardPage);
+document.getElementById('backFees').onclick=()=>show(dashboardPage);
+document.getElementById('backRemarks').onclick=()=>show(dashboardPage);
+document.getElementById('backAdmin').onclick=()=>show(dashboardPage);
+
+// Admin update
+document.getElementById('updateBtn').onclick=()=>{
+  const idx=document.getElementById('studentSelect').value;
+  if(idx===''){alert('Select student'); return;}
+  const s=users[idx];
+  s.fees={status:document.getElementById('feeStatus').value, amount:document.getElementById('feeAmount').value, due:document.getElementById('feeDue').value};
+  if(document.getElementById('newRemark').value){s.remarks.push(document.getElementById('newRemark').value);}
+  if(document.getElementById('subName').value && document.getElementById('subDesc').value){s.subjects[document.getElementById('subName').value]=document.getElementById('subDesc').value;}
+  alert('Student updated!');
+};
 </script>
 
 </body>
