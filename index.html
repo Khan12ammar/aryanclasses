@@ -183,4 +183,104 @@
     } else document.getElementById('loginError').classList.remove('hidden');
   });
 
-  //
+  // Admin login button
+  document.getElementById('adminLoginBtn').addEventListener('click',()=>showPage(adminLoginPage));
+
+  // Admin login
+  document.getElementById('adminForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const id = document.getElementById('adminId').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+    if(id===admin.id && pass===admin.password){
+      document.getElementById('adminError').classList.add('hidden');
+      loadAdminStudents();
+      showPage(adminDashboard);
+    } else document.getElementById('adminError').classList.remove('hidden');
+  });
+
+  // Show page helper
+  function showPage(page){
+    [loginPage,dashboard,subjectsPage,feesPage,remarksPage,adminLoginPage,adminDashboard].forEach(p=>p.classList.remove('active'));
+    page.classList.add('active');
+  }
+
+  // Student dashboard buttons
+  let currentUser = null;
+  document.getElementById('btnSubjects').addEventListener('click',()=>{
+    const list = document.getElementById('subjectsList');
+    list.innerHTML='';
+    for(const [k,v] of Object.entries(currentUser.subjects)){
+      const div=document.createElement('div');
+      div.className='content-card';
+      div.innerHTML=`<h3>${k}</h3><p>${v}</p>`;
+      list.appendChild(div);
+    }
+    showPage(subjectsPage);
+  });
+  document.getElementById('btnFees').addEventListener('click',()=>{
+    const f = document.getElementById('feesInfo');
+    f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
+    showPage(feesPage);
+  });
+  document.getElementById('btnRemarks').addEventListener('click',()=>{
+    const r = document.getElementById('remarksList');
+    r.innerHTML='';
+    currentUser.remarks.forEach(rem=>{
+      const div=document.createElement('div');
+      div.className='remark';
+      div.textContent=rem;
+      r.appendChild(div);
+    });
+    showPage(remarksPage);
+  });
+  document.getElementById('backSubjects').addEventListener('click',()=>showPage(dashboard));
+  document.getElementById('backFees').addEventListener('click',()=>showPage(dashboard));
+  document.getElementById('backRemarks').addEventListener('click',()=>showPage(dashboard));
+  document.getElementById('btnLogout').addEventListener('click',()=>{currentUser=null;showPage(loginPage);});
+
+  // Admin functions
+  function loadAdminStudents(){
+    const sel = document.getElementById('studentSelect');
+    sel.innerHTML='<option value="">Select Student</option>';
+    users.forEach((u,i)=>{
+      const o=document.createElement('option');
+      o.value=i;o.textContent=`${u.name} (${u.id})`;
+      sel.appendChild(o);
+    });
+  }
+  document.getElementById('updateFeeBtn').addEventListener('click',()=>{
+    const idx = document.getElementById('studentSelect').value;
+    if(idx===''){alert('Select student'); return;}
+    const u = users[idx];
+    u.fees.status=document.getElementById('feeStatus').value;
+    u.fees.amount=document.getElementById('feeAmount').value;
+    u.fees.due=document.getElementById('feeDue').value;
+    localStorage.setItem('users',JSON.stringify(users));
+    alert('Fees updated!');
+  });
+  document.getElementById('addRemarkBtn').addEventListener('click',()=>{
+    const idx = document.getElementById('studentSelect').value;
+    if(idx===''){alert('Select student'); return;}
+    const r = document.getElementById('newRemark').value.trim();
+    if(r===''){alert('Enter remark'); return;}
+    users[idx].remarks.push(r);
+    localStorage.setItem('users',JSON.stringify(users));
+    document.getElementById('newRemark').value='';
+    alert('Remark added!');
+  });
+  document.getElementById('updateSubBtn').addEventListener('click',()=>{
+    const idx = document.getElementById('studentSelect').value;
+    if(idx===''){alert('Select student'); return;}
+    const name=document.getElementById('subName').value.trim();
+    const desc=document.getElementById('subDesc').value.trim();
+    if(name===''||desc===''){alert('Enter subject name & description');return;}
+    users[idx].subjects[name]=desc;
+    localStorage.setItem('users',JSON.stringify(users));
+    document.getElementById('subName').value='';document.getElementById('subDesc').value='';
+    alert('Subject updated!');
+  });
+  document.getElementById('adminLogoutBtn').addEventListener('click',()=>showPage(loginPage));
+</script>
+
+</body>
+</html>
