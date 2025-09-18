@@ -9,7 +9,7 @@
     :root{
       --primary: #0f766e;     /* teal */
       --primary-dark: #0b5e57;
-      --accent:  #f59e0b;     /* amber / accent */
+      --accent:  #f59e0b;     /* amber */
       --accent-dark: #d97706;
       --muted:   #374151;     /* slate/dark gray */
       --danger:  #ef4444;
@@ -18,7 +18,7 @@
       --card-border: rgba(15,118,110,0.12);
     }
 
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;}
     body{
       margin:0;
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -29,11 +29,11 @@
       min-height:100vh;
     }
 
-    /* pages */
+    /* Pages */
     .page{ display:none; padding:0 16px 32px; }
     .active{ display:block; }
 
-    /* header / title bar */
+    /* Header / title bar */
     .title-bar{
       text-align:center;
       padding:18px 12px;
@@ -65,7 +65,7 @@
       border: 1px solid var(--card-border);
     }
 
-    /* inputs */
+    /* Inputs */
     input[type="text"], input[type="password"]{
       width:100%;
       padding:12px 14px;
@@ -81,7 +81,7 @@
       border-color: var(--primary);
     }
 
-    /* buttons */
+    /* Buttons */
     .btn{
       display:block;
       width:100%;
@@ -109,10 +109,10 @@
     .btn-danger{ background:var(--danger); color:#fff; border-color:#b91c1c; }
     .btn-danger:hover{ background:#dc2626; box-shadow:0 10px 28px rgba(220,38,38,0.12); }
 
-    /* full width container on dashboard */
-    .stack { max-width:420px; margin:20px auto 0; display:flex; flex-direction:column; gap:12px; padding:0 6px; }
+    /* Stack / Dashboard buttons */
+    .stack { max-width:420px; margin:20px auto; display:flex; flex-direction:column; gap:12px; padding:0 6px; }
 
-    /* content cards (subjects, fees, remarks) */
+    /* Content cards (subjects, fees, remarks) */
     .content-card{
       background:#fff;
       padding:14px;
@@ -120,6 +120,7 @@
       border:1px solid var(--card-border);
       box-shadow:0 6px 18px rgba(2,6,23,0.04);
       margin-bottom:12px;
+      word-wrap: break-word;
     }
     .content-card h3{ margin:0 0 8px; color:var(--primary); font-size:16px; }
     .content-card p{ margin:0; color:#374151; line-height:1.45; }
@@ -131,15 +132,14 @@
       border-radius:10px;
       color:#92400e;
       margin-bottom:10px;
+      word-wrap: break-word;
     }
 
     .small{ font-size:13px; color:#6b7280; margin-top:8px; }
 
-    /* error */
-    .hidden{ display:none; }
     .error{ color:var(--danger); font-weight:600; margin-top:10px; text-align:center; }
+    .hidden{ display:none; }
 
-    /* responsive tweaks */
     @media (min-width:900px){
       .center-wrap{ padding:32px 0; }
     }
@@ -153,14 +153,12 @@
       <h1>Aryan Classes</h1>
       <p>Secure student portal</p>
     </div>
-
     <div class="center-wrap">
       <div class="card" role="form" aria-labelledby="loginTitle">
         <h2 id="loginTitle" style="margin:0 0 8px; color:var(--primary); font-size:20px;">Student Login</h2>
         <p class="small" style="margin-bottom:12px;">Enter your Student ID & password</p>
-
         <form id="loginForm" autocomplete="off">
-          <input id="studentId" type="text" placeholder="Student ID (e.g. reo12345678912)" required />
+          <input id="studentId" type="text" placeholder="Student ID" required />
           <input id="password" type="password" placeholder="Password" required />
           <button class="btn btn-primary" type="submit">Login</button>
           <div id="errorMsg" class="error hidden">❌ Incorrect ID or Password</div>
@@ -176,11 +174,10 @@
       <h1>Aryan Classes</h1>
       <p id="dashboardGreeting">Welcome</p>
     </div>
-
     <div class="stack" role="navigation" aria-label="Main actions">
-      <button class="btn btn-accent" id="btnSubjects" aria-controls="subjectsPage">📘 Subjects</button>
-      <button class="btn btn-primary" id="btnFees" aria-controls="feesPage">💳 Fees</button>
-      <button class="btn btn-muted" id="btnRemarks" aria-controls="remarksPage">📝 Remarks</button>
+      <button class="btn btn-accent" id="btnSubjects">📘 Subjects</button>
+      <button class="btn btn-primary" id="btnFees">💳 Fees</button>
+      <button class="btn btn-muted" id="btnRemarks">📝 Remarks</button>
       <button class="btn btn-danger" id="btnLogout">🚪 Logout</button>
     </div>
   </div>
@@ -188,9 +185,8 @@
   <!-- Subjects -->
   <div id="subjectsPage" class="page">
     <div class="title-bar"><h1>📘 Subjects</h1><p>Study material & notes</p></div>
-
     <div class="card" style="max-width:920px; margin:18px auto 28px;">
-      <div id="subjectsList" class="content-card"></div>
+      <div id="subjectsList"></div>
       <div style="text-align:center; margin-top:12px;">
         <button class="btn btn-primary" id="backFromSubjects">⬅ Back to Dashboard</button>
       </div>
@@ -200,9 +196,8 @@
   <!-- Fees -->
   <div id="feesPage" class="page">
     <div class="title-bar"><h1>💳 Fees</h1><p>Payment & due details</p></div>
-
     <div class="card" style="max-width:920px; margin:18px auto 28px;">
-      <div id="feesInfo" class="content-card"></div>
+      <div id="feesInfo"></div>
       <div style="text-align:center; margin-top:12px;">
         <button class="btn btn-accent" id="backFromFees">⬅ Back to Dashboard</button>
       </div>
@@ -212,7 +207,6 @@
   <!-- Remarks -->
   <div id="remarksPage" class="page">
     <div class="title-bar"><h1>📝 Remarks</h1><p>Teacher notes & updates</p></div>
-
     <div class="card" style="max-width:920px; margin:18px auto 28px;">
       <div id="remarksInfo"></div>
       <div style="margin-top:12px; text-align:center;">
@@ -222,7 +216,6 @@
   </div>
 
   <script>
-    // Demo user data (stored so refresh keeps it consistent)
     const demoUsers = [
       {
         id: 'reo12345678912',
@@ -243,7 +236,6 @@
       }
     ];
 
-    // initialize storage (idempotent)
     if(!localStorage.getItem('aryan_demo_users')){
       localStorage.setItem('aryan_demo_users', JSON.stringify(demoUsers));
     }
@@ -251,7 +243,6 @@
     function getUsers(){ return JSON.parse(localStorage.getItem('aryan_demo_users') || '[]'); }
     function findUser(id, pass){ return getUsers().find(u => u.id === id && u.password === pass) || null; }
 
-    // page elements
     const loginPage = document.getElementById('loginPage'),
           dashboardPage = document.getElementById('dashboardPage'),
           subjectsPage = document.getElementById('subjectsPage'),
@@ -265,7 +256,7 @@
           feesInfo = document.getElementById('feesInfo'),
           remarksInfo = document.getElementById('remarksInfo');
 
-    // buttons
+    // Dashboard buttons
     document.getElementById('btnSubjects').addEventListener('click', ()=> showPage('subjectsPage'));
     document.getElementById('btnFees').addEventListener('click', ()=> showPage('feesPage'));
     document.getElementById('btnRemarks').addEventListener('click', ()=> showPage('remarksPage'));
@@ -275,18 +266,14 @@
     document.getElementById('backFromFees').addEventListener('click', ()=> showPage('dashboardPage'));
     document.getElementById('backFromRemarks').addEventListener('click', ()=> showPage('dashboardPage'));
 
-    // current user (in-memory)
     let currentUser = null;
 
-    // page show helper
     function showPage(pageId){
       [loginPage, dashboardPage, subjectsPage, feesPage, remarksPage].forEach(el => el.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
-      // ensure scroll to top for pages
       window.scrollTo(0,0);
     }
 
-    // login handler
     loginForm.addEventListener('submit', function(e){
       e.preventDefault();
       const id = document.getElementById('studentId').value.trim();
@@ -303,19 +290,22 @@
 
     function loadDashboard(user){
       dashboardGreeting.textContent = `Welcome, ${user.name} • ${user.class}`;
-      // populate subjects (for subjects page)
+
       subjectsList.innerHTML = '';
-      for(const [k,v] of Object.entries(user.subjects)){
+      for(const [subject, desc] of Object.entries(user.subjects)){
         const el = document.createElement('div');
         el.className = 'content-card';
-        el.innerHTML = `<h3>${k}</h3><p>${v}</p>`;
+        el.innerHTML = `<h3>${subject}</h3><p>${desc}</p>`;
         subjectsList.appendChild(el);
       }
-      // fees
-      feesInfo.innerHTML = `<div class="content-card"><p><strong>Status:</strong> ${user.fees.status}</p><p><strong>Amount:</strong> ${user.fees.amount}</p><p><strong>Due:</strong> ${user.fees.due}</p></div>`;
-      // remarks
+
+      feesInfo.innerHTML = `<div class="content-card">
+        <p><strong>Status:</strong> ${user.fees.status}</p>
+        <p><strong>Amount:</strong> ${user.fees.amount}</p>
+        <p><strong>Due:</strong> ${user.fees.due}</p>
+      </div>`;
+
       renderRemarks(user);
-      // show dashboard
       showPage('dashboardPage');
     }
 
@@ -335,13 +325,11 @@
 
     function signOut(){
       currentUser = null;
-      // clear input fields
       document.getElementById('studentId').value = '';
       document.getElementById('password').value = '';
       showPage('loginPage');
     }
 
-    // show login initially
     showPage('loginPage');
   </script>
 </body>
