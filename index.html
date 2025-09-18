@@ -1,196 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aryan Classes Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f9fafb;
-      color: #111827;
-    }
-    .page {
-      display: none;
-      padding: 20px;
-    }
-    .active {
-      display: block;
-    }
-    .title-bar {
-      text-align: center;
-      padding: 20px 10px;
-      background: linear-gradient(135deg, #2563eb, #1e40af); /* Royal blue gradient */
-      color: #fff;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .title-bar h1 {
-      margin: 0;
-      font-size: 26px;
-      font-weight: bold;
-    }
-    .title-bar p {
-      margin: 5px 0 0;
-      font-size: 15px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      margin: 12px 0;
-      padding: 15px;
-      font-size: 18px;
-      font-weight: bold;
-      background: #2563eb; /* Primary blue */
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    }
-    .btn:hover {
-      background: #1e40af; /* darker blue */
-      transform: translateY(-2px);
-    }
-    .back-btn {
-      background: #f59e0b; /* Accent amber */
-      color: white;
-    }
-    .back-btn:hover {
-      background: #d97706;
-    }
-    .card {
-      background: #fff;
-      padding: 15px;
-      margin: 15px 0;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    }
-    .card h3 {
-      margin: 0 0 5px;
-      color: #2563eb;
-    }
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
   </style>
 </head>
-<body>
+<body class="bg-white min-h-screen flex flex-col">
 
   <!-- LOGIN PAGE -->
-  <div id="loginPage" class="page active">
-    <div class="title-bar">
-      <h1>Aryan Classes</h1>
-      <p>Welcome back!</p>
+  <main id="loginPage" class="flex flex-col items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-sm bg-white border-2 border-teal-500 rounded-2xl shadow-xl p-8">
+      <h1 class="text-3xl font-extrabold text-center text-teal-700">Aryan Classes</h1>
+      <p class="text-sm text-center text-gray-500 mb-6">Welcome back, please login</p>
+
+      <form id="loginForm" class="space-y-4">
+        <input id="studentId" type="text" placeholder="Student ID" 
+          class="w-full border-2 border-gray-300 p-3 rounded-xl focus:outline-none focus:border-teal-500" required>
+
+        <input id="password" type="password" placeholder="Password" 
+          class="w-full border-2 border-gray-300 p-3 rounded-xl focus:outline-none focus:border-teal-500" required>
+
+        <button type="submit" 
+          class="w-full bg-teal-600 text-white py-3 rounded-xl font-semibold shadow-md hover:bg-teal-700 transition">
+          Login
+        </button>
+
+        <p id="errorMsg" class="text-red-600 text-center hidden">❌ Incorrect ID or Password</p>
+      </form>
     </div>
-    <form id="loginForm" style="margin-top:40px;text-align:center;">
-      <input type="text" id="studentId" placeholder="Student ID"><br><br>
-      <input type="password" id="password" placeholder="Password"><br><br>
-      <button type="submit" class="btn">Login</button>
-      <p id="errorMsg" style="color:red;display:none;">❌ Incorrect ID or Password</p>
-      <p style="font-size:14px;">Demo: <b>reo12345678912</b> / <b>ammar.1010</b></p>
-    </form>
-  </div>
+  </main>
 
   <!-- DASHBOARD -->
-  <div id="dashboardPage" class="page">
-    <div class="title-bar">
-      <h1>Aryan Classes</h1>
-      <p id="greeting"></p>
+  <section id="dashboardPage" class="hidden flex flex-col min-h-screen p-6">
+    <h2 id="welcomeText" class="text-2xl font-bold text-teal-700 mb-6 text-center">Welcome</h2>
+
+    <div class="flex flex-col gap-4">
+      <button onclick="showPage('subjects')" 
+        class="w-full bg-orange-500 text-white py-4 rounded-xl font-semibold shadow hover:bg-orange-600 border-2 border-orange-600">
+        📘 Subjects
+      </button>
+
+      <button onclick="showPage('fees')" 
+        class="w-full bg-teal-500 text-white py-4 rounded-xl font-semibold shadow hover:bg-teal-600 border-2 border-teal-600">
+        💳 Fees
+      </button>
+
+      <button onclick="showPage('about')" 
+        class="w-full bg-gray-700 text-white py-4 rounded-xl font-semibold shadow hover:bg-gray-800 border-2 border-gray-800">
+        ℹ️ About
+      </button>
+
+      <button onclick="signOut()" 
+        class="w-full bg-red-500 text-white py-4 rounded-xl font-semibold shadow hover:bg-red-600 border-2 border-red-600">
+        🚪 Logout
+      </button>
     </div>
-    <button class="btn" onclick="showPage('subjectsPage')">📘 Subjects</button>
-    <button class="btn" onclick="showPage('feesPage')">💳 Fees</button>
-    <button class="btn" onclick="showPage('aboutPage')">ℹ️ About</button>
-    <button class="btn" onclick="signOut()">🚪 Logout</button>
-  </div>
+  </section>
 
   <!-- SUBJECTS -->
-  <div id="subjectsPage" class="page">
-    <div class="title-bar">
-      <h1>📘 Subjects</h1>
-      <p>Study material & notes</p>
-    </div>
-    <div id="subjectsList"></div>
-    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
-  </div>
+  <section id="subjectsPage" class="hidden p-6">
+    <button onclick="showPage('dashboard')" class="mb-4 text-teal-600 font-semibold">⬅ Back</button>
+    <h2 class="text-2xl font-bold text-teal-700 mb-4">📘 Subjects & Notes</h2>
+    <div id="subjectsList" class="space-y-4"></div>
+  </section>
 
   <!-- FEES -->
-  <div id="feesPage" class="page">
-    <div class="title-bar">
-      <h1>💳 Fees</h1>
-      <p>Your payment details</p>
-    </div>
-    <div id="feesInfo"></div>
-    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
-  </div>
+  <section id="feesPage" class="hidden p-6">
+    <button onclick="showPage('dashboard')" class="mb-4 text-teal-600 font-semibold">⬅ Back</button>
+    <h2 class="text-2xl font-bold text-teal-700 mb-4">💳 Fees Status</h2>
+    <div id="feesInfo" class="bg-white border-2 border-teal-500 p-6 rounded-xl shadow"></div>
+  </section>
 
   <!-- ABOUT -->
-  <div id="aboutPage" class="page">
-    <div class="title-bar">
-      <h1>ℹ️ About</h1>
-      <p>Learn more about Aryan Classes</p>
+  <section id="aboutPage" class="hidden p-6">
+    <button onclick="showPage('dashboard')" class="mb-4 text-teal-600 font-semibold">⬅ Back</button>
+    <h2 class="text-2xl font-bold text-teal-700 mb-4">ℹ️ About Aryan Classes</h2>
+    <div class="bg-white border-2 border-orange-500 p-6 rounded-xl shadow">
+      <p class="text-gray-700">Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English. Contact: +91-9876543210 | info@aryanclasses.com</p>
     </div>
-    <div class="card">
-      <p>Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English.<br>
-      Contact: +91-9876543210 | info@aryanclasses.com</p>
-    </div>
-    <button class="btn back-btn" onclick="showPage('dashboardPage')">⬅ Back</button>
-  </div>
+  </section>
 
   <script>
+    // DEMO USER
     const demoUsers = [
-      {
-        id: 'reo12345678912',
-        password: 'ammar.1010',
-        name: 'Reo',
-        class: '10th',
+      { id: 'reo12345678912', password: 'ammar.1010', name: 'Reo', class: '10th', 
         fees: { status: 'Pending', amount: '₹2,000', due: '30 Sept 2025' },
-        subjects: {
-          Maths: 'Algebra, Geometry, Trigonometry basics...',
-          Science: 'Laws of motion, Atoms, Human body systems...',
-          English: 'Grammar, Essay writing, Comprehension...'
-        }
-      }
+        subjects: { Maths:'Algebra, Geometry...', Science:'Laws of motion...', English:'Grammar & essays...' } }
     ];
+    localStorage.setItem('aryan_demo_users', JSON.stringify(demoUsers));
 
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    function getUsers(){ return JSON.parse(localStorage.getItem('aryan_demo_users') || '[]'); }
+    function findUser(id, pass){ return getUsers().find(u => u.id===id && u.password===pass) || null; }
+
+    const loginPage=document.getElementById('loginPage'),
+          dashboardPage=document.getElementById('dashboardPage'),
+          subjectsPage=document.getElementById('subjectsPage'),
+          feesPage=document.getElementById('feesPage'),
+          aboutPage=document.getElementById('aboutPage'),
+          errorMsg=document.getElementById('errorMsg'),
+          welcomeText=document.getElementById('welcomeText'),
+          subjectsList=document.getElementById('subjectsList'),
+          feesInfo=document.getElementById('feesInfo');
+
+    function loadDashboard(user){
+      welcomeText.textContent=`Welcome, ${user.name}`;
+      subjectsList.innerHTML='';
+      Object.entries(user.subjects).forEach(([sub,notes])=>{
+        subjectsList.innerHTML+=`<div class="p-4 border-2 border-teal-500 rounded-xl"><h3 class="font-bold">${sub}</h3><p>${notes}</p></div>`;
+      });
+      feesInfo.innerHTML=`<p><strong>Status:</strong> ${user.fees.status}</p><p><strong>Amount:</strong> ${user.fees.amount}</p><p><strong>Due:</strong> ${user.fees.due}</p>`;
+      loginPage.classList.add('hidden'); dashboardPage.classList.remove('hidden');
     }
 
-    function loadDashboard(user) {
-      document.getElementById('greeting').textContent = `Welcome, ${user.name} (${user.class})`;
-      const subs = document.getElementById('subjectsList');
-      subs.innerHTML = '';
-      for (let s in user.subjects) {
-        subs.innerHTML += `<div class="card"><h3>${s}</h3><p>${user.subjects[s]}</p></div>`;
-      }
-      document.getElementById('feesInfo').innerHTML = `
-        <div class="card">
-          <p><b>Status:</b> ${user.fees.status}</p>
-          <p><b>Amount:</b> ${user.fees.amount}</p>
-          <p><b>Due:</b> ${user.fees.due}</p>
-        </div>
-      `;
-      showPage('dashboardPage');
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit',e=>{
       e.preventDefault();
-      const id = document.getElementById('studentId').value;
-      const pass = document.getElementById('password').value;
-      const user = demoUsers.find(u => u.id === id && u.password === pass);
-      if (user) {
-        document.getElementById('errorMsg').style.display = 'none';
-        loadDashboard(user);
-      } else {
-        document.getElementById('errorMsg').style.display = 'block';
-      }
+      const id=document.getElementById('studentId').value.trim();
+      const pass=document.getElementById('password').value.trim();
+      const user=findUser(id,pass);
+      if(!user){ errorMsg.classList.remove('hidden'); return; }
+      errorMsg.classList.add('hidden'); loadDashboard(user);
     });
 
-    function signOut() {
-      showPage('loginPage');
+    function showPage(page){
+      dashboardPage.classList.add('hidden'); subjectsPage.classList.add('hidden'); feesPage.classList.add('hidden'); aboutPage.classList.add('hidden');
+      if(page==='dashboard') dashboardPage.classList.remove('hidden');
+      if(page==='subjects') subjectsPage.classList.remove('hidden');
+      if(page==='fees') feesPage.classList.remove('hidden');
+      if(page==='about') aboutPage.classList.remove('hidden');
+    }
+
+    function signOut(){
+      loginPage.classList.remove('hidden');
+      dashboardPage.classList.add('hidden'); subjectsPage.classList.add('hidden'); feesPage.classList.add('hidden'); aboutPage.classList.add('hidden');
     }
   </script>
-
 </body>
 </html>
