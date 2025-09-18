@@ -49,9 +49,9 @@
         💳 Fees
       </button>
 
-      <button onclick="showPage('about')" 
+      <button onclick="showPage('remarks')" 
         class="w-full bg-gray-700 text-white py-4 rounded-xl font-semibold shadow hover:bg-gray-800 border-2 border-gray-800">
-        ℹ️ About
+        📝 Remarks
       </button>
 
       <button onclick="signOut()" 
@@ -75,21 +75,33 @@
     <div id="feesInfo" class="bg-white border-2 border-teal-500 p-6 rounded-xl shadow"></div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="aboutPage" class="hidden p-6">
+  <!-- REMARKS -->
+  <section id="remarksPage" class="hidden p-6">
     <button onclick="showPage('dashboard')" class="mb-4 text-teal-600 font-semibold">⬅ Back</button>
-    <h2 class="text-2xl font-bold text-teal-700 mb-4">ℹ️ About Aryan Classes</h2>
-    <div class="bg-white border-2 border-orange-500 p-6 rounded-xl shadow">
-      <p class="text-gray-700">Aryan Classes helps students excel with personalised tuition in Mathematics, Science and English. Contact: +91-9876543210 | info@aryanclasses.com</p>
-    </div>
+    <h2 class="text-2xl font-bold text-teal-700 mb-4">📝 Teacher's Remarks</h2>
+    <div id="remarksInfo" class="bg-white border-2 border-orange-500 p-6 rounded-xl shadow space-y-4"></div>
   </section>
 
   <script>
     // DEMO USER
     const demoUsers = [
-      { id: 'reo12345678912', password: 'ammar.1010', name: 'Reo', class: '10th', 
+      { 
+        id: 'reo12345678912', 
+        password: 'ammar.1010', 
+        name: 'Reo', 
+        class: '10th', 
         fees: { status: 'Pending', amount: '₹2,000', due: '30 Sept 2025' },
-        subjects: { Maths:'Algebra, Geometry...', Science:'Laws of motion...', English:'Grammar & essays...' } }
+        subjects: { 
+          Maths:'Algebra, Geometry...', 
+          Science:'Laws of motion...', 
+          English:'Grammar & essays...' 
+        },
+        remarks: [
+          "Reo is improving in Mathematics but needs more practice in Algebra.",
+          "Good performance in Science tests.",
+          "Should focus more on English comprehension exercises."
+        ]
+      }
     ];
     localStorage.setItem('aryan_demo_users', JSON.stringify(demoUsers));
 
@@ -100,20 +112,33 @@
           dashboardPage=document.getElementById('dashboardPage'),
           subjectsPage=document.getElementById('subjectsPage'),
           feesPage=document.getElementById('feesPage'),
-          aboutPage=document.getElementById('aboutPage'),
+          remarksPage=document.getElementById('remarksPage'),
           errorMsg=document.getElementById('errorMsg'),
           welcomeText=document.getElementById('welcomeText'),
           subjectsList=document.getElementById('subjectsList'),
-          feesInfo=document.getElementById('feesInfo');
+          feesInfo=document.getElementById('feesInfo'),
+          remarksInfo=document.getElementById('remarksInfo');
 
     function loadDashboard(user){
       welcomeText.textContent=`Welcome, ${user.name}`;
+      
+      // Subjects
       subjectsList.innerHTML='';
       Object.entries(user.subjects).forEach(([sub,notes])=>{
         subjectsList.innerHTML+=`<div class="p-4 border-2 border-teal-500 rounded-xl"><h3 class="font-bold">${sub}</h3><p>${notes}</p></div>`;
       });
+
+      // Fees
       feesInfo.innerHTML=`<p><strong>Status:</strong> ${user.fees.status}</p><p><strong>Amount:</strong> ${user.fees.amount}</p><p><strong>Due:</strong> ${user.fees.due}</p>`;
-      loginPage.classList.add('hidden'); dashboardPage.classList.remove('hidden');
+
+      // Remarks
+      remarksInfo.innerHTML='';
+      user.remarks.forEach(r=>{
+        remarksInfo.innerHTML+=`<div class="p-4 border-2 border-orange-500 rounded-xl bg-gray-50">${r}</div>`;
+      });
+
+      loginPage.classList.add('hidden'); 
+      dashboardPage.classList.remove('hidden');
     }
 
     document.getElementById('loginForm').addEventListener('submit',e=>{
@@ -126,16 +151,23 @@
     });
 
     function showPage(page){
-      dashboardPage.classList.add('hidden'); subjectsPage.classList.add('hidden'); feesPage.classList.add('hidden'); aboutPage.classList.add('hidden');
+      dashboardPage.classList.add('hidden'); 
+      subjectsPage.classList.add('hidden'); 
+      feesPage.classList.add('hidden'); 
+      remarksPage.classList.add('hidden');
+
       if(page==='dashboard') dashboardPage.classList.remove('hidden');
       if(page==='subjects') subjectsPage.classList.remove('hidden');
       if(page==='fees') feesPage.classList.remove('hidden');
-      if(page==='about') aboutPage.classList.remove('hidden');
+      if(page==='remarks') remarksPage.classList.remove('hidden');
     }
 
     function signOut(){
       loginPage.classList.remove('hidden');
-      dashboardPage.classList.add('hidden'); subjectsPage.classList.add('hidden'); feesPage.classList.add('hidden'); aboutPage.classList.add('hidden');
+      dashboardPage.classList.add('hidden'); 
+      subjectsPage.classList.add('hidden'); 
+      feesPage.classList.add('hidden'); 
+      remarksPage.classList.add('hidden');
     }
   </script>
 </body>
