@@ -122,6 +122,8 @@ input:focus,textarea:focus{border-color:var(--primary);}
       <textarea id="subDesc" placeholder="Description"></textarea>
       <button class="btn btn-primary" id="updateSubBtn">Update Subject</button>
     </div>
+
+    <button class="btn btn-danger" id="adminBack">⬅ Back to Dashboard</button>
   </div>
 </div>
 
@@ -160,62 +162,100 @@ document.getElementById('loginForm').addEventListener('submit',e=>{
 // Load student dashboard
 function loadStudentDashboard(){
   document.getElementById('greeting').textContent=`Welcome, ${currentUser.name} • ${currentUser.class}`;
-  document.getElementById('btnAdminPanel').classList.toggle('hidden', !currentUser.admin);
-  if(currentUser.admin) loadAdminStudents();
+  // Show admin button only for admin
+  document.getElementById('btnAdminPanel').classList.toggle('hidden',!currentUser.admin);
 }
 
-// Dashboard buttons
+// Student buttons
 document.getElementById('btnSubjects').addEventListener('click',()=>{
-  const list=document.getElementById('subjectsList'); list.innerHTML='';
-  for(const [k,v] of Object.entries(currentUser.subjects)){const d=document.createElement('div');d.className='content-card';d.innerHTML=`<h3>${k}</h3><p>${v}</p>`;list.appendChild(d);}
+  const list = document.getElementById('subjectsList');
+  list.innerHTML='';
+  for(const [k,v] of Object.entries(currentUser.subjects)){
+    const d=document.createElement('div');d.className='content-card';
+    d.innerHTML=`<h3>${k}</h3><p>${v}</p>`;list.appendChild(d);
+  }
   showPage(subjectsPage);
 });
+
 document.getElementById('btnFees').addEventListener('click',()=>{
-  const f=document.getElementById('feesInfo'); f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
+  const f = document.getElementById('feesInfo');
+  f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
   showPage(feesPage);
 });
+
 document.getElementById('btnRemarks').addEventListener('click',()=>{
   const r=document.getElementById('remarksList'); r.innerHTML='';
   currentUser.remarks.forEach(rem=>{const d=document.createElement('div');d.className='remark';d.textContent=rem;r.appendChild(d);});
   showPage(remarksPage);
 });
 
+// Back buttons
 document.getElementById('backSubjects').addEventListener('click',()=>showPage(dashboard));
 document.getElementById('backFees').addEventListener('click',()=>showPage(dashboard));
 document.getElementById('backRemarks').addEventListener('click',()=>showPage(dashboard));
+document.getElementById('adminBack').addEventListener('click',()=>showPage(dashboard));
+
+// Logout
 document.getElementById('btnLogout').addEventListener('click',()=>{
   currentUser=null;
+  document.getElementById('loginForm').reset();
   showPage(loginPage);
 });
 
-// Admin panel
-document.getElementById('btnAdminPanel').addEventListener('click',()=>showPage(adminDashboard));
-const sel=document.getElementById('studentSelect');
+// Admin Panel
+document.getElementById('btnAdminPanel').addEventListener('click',()=>{
+  loadAdminStudents();
+  showPage(adminDashboard);
+});
 
-function loadAdminStudents(){sel.innerHTML='<option value="">Select Student</option>';users.forEach((u,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${u.name} (${u.id})`;sel.appendChild(o);});}
+// Load students in dropdown
+function loadAdminStudents(){
+  const sel = document.getElementById('studentSelect');
+  sel.innerHTML='<option value="">Select Student</option>';
+  users.forEach((u,i)=>{const o=document.createElement('option'); o.value=i; o.textContent=`${u.name} (${u.id})`; sel.appendChild(o);});
+  clearAdminFields();
+}
 
-// Admin actions
+function clearAdminFields(){['feeStatus','feeAmount','feeDue','newRemark','subName','subDesc'].forEach(id=>document.getElementById(id).value='');}
+
+// Auto-fill fields when student selected
+document.getElementById('studentSelect').addEventListener('change',function(){
+  const idx=this.value; if(idx===''){clearAdminFields();return;}
+  const s=users[idx];
+  document.getElementById('feeStatus').value=s.fees.status;
+  document.getElementById('feeAmount').value=s.fees.amount;
+  document.getElementById('feeDue').value=s.fees.due;
+});
+
+// Update Fees
 document.getElementById('updateFeeBtn').addEventListener('click',()=>{
-  const idx=sel.value;if(idx===''){alert('Select student');return;}
-  users[idx].fees.status=document.getElementById('feeStatus').value;
-  users[idx].fees.amount=document.getElementById('feeAmount').value;
-  users[idx].fees.due=document.getElementById('feeDue').value;
-  localStorage.setItem('users',JSON.stringify(users));alert('Fees updated!');
+  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
+  const fS=document.getElementById('feeStatus').value;
+  const fA=document.getElementById('feeAmount').value;
+  const fD=document.getElementById('feeDue').value;
+  users[idx].fees={status:fS,amount:fA,due:fD};
+  localStorage.setItem('users',JSON.stringify(users));
+  alert('Fees updated!');
 });
 
+// Add Remark
 document.getElementById('addRemarkBtn').addEventListener('click',()=>{
-  const idx=sel.value;if(idx===''){alert('Select student');return;}
-  const r=document.getElementById('newRemark').value.trim();if(r===''){alert('Enter remark');return;}
-  users[idx].remarks.push(r);document.getElementById('newRemark').value=''; localStorage.setItem('users',JSON.stringify(users));alert('Remark added!');
+  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
+  const r=document.getElementById('newRemark').value.trim(); if(!r){alert('Enter remark');return;}
+  users[idx].remarks.push(r); localStorage.setItem('users',JSON.stringify(users));
+  document.getElementById('newRemark').value='';
+  alert('Remark added!');
 });
 
+// Update Subject
 document.getElementById('updateSubBtn').addEventListener('click',()=>{
-  const idx=sel.value;if(idx===''){alert('Select student');return;}
-  const name=document.getElementById('subName').value.trim();
-  const desc=document.getElementById('subDesc').value.trim();
-  if(name===''||desc===''){alert('Enter subject name & description');return;}
-  users[idx].subjects[name]=desc;document.getElementById('subName').value='';document.getElementById('subDesc').value='';
-  localStorage.setItem('users',JSON.stringify(users));alert('Subject updated!');
+  const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
+  const n=document.getElementById('subName').value.trim();
+  const d=document.getElementById('subDesc').value.trim();
+  if(!n||!d){alert('Enter subject & description');return;}
+  users[idx].subjects[n]=d; localStorage.setItem('users',JSON.stringify(users));
+  document.getElementById('subName').value=''; document.getElementById('subDesc').value='';
+  alert('Subject updated!');
 });
 </script>
 </body>
