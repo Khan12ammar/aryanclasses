@@ -167,6 +167,61 @@
       </div>
     </div>
   </div>
+<!-- Add this below your current login section in HTML -->
+<!-- Admin Login Page -->
+<div id="adminLoginPage" class="page">
+  <div class="title-bar">
+    <h1>Aryan Classes Admin</h1>
+    <p>Secure admin portal</p>
+  </div>
+  <div class="center-wrap">
+    <div class="card">
+      <h2 style="margin:0 0 8px; color:var(--primary); font-size:20px;">Admin Login</h2>
+      <form id="adminLoginForm" autocomplete="off">
+        <input id="adminId" type="text" placeholder="Admin ID" required />
+        <input id="adminPassword" type="password" placeholder="Password" required />
+        <button class="btn btn-accent" type="submit">Login</button>
+        <div id="adminErrorMsg" class="error hidden">❌ Incorrect Admin ID or Password</div>
+        <div class="small" style="text-align:center; margin-top:12px;">Demo: <strong>admin</strong> / <strong>admin123</strong></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Dashboard -->
+<div id="adminDashboardPage" class="page">
+  <div class="title-bar">
+    <h1>Admin Dashboard</h1>
+    <p>Manage students</p>
+  </div>
+  <div class="stack">
+    <select id="selectStudent">
+      <option value="">Select a student</option>
+    </select>
+    <div class="card" style="padding:12px;">
+      <h3>Update Fees</h3>
+      <input id="adminFeeStatus" type="text" placeholder="Status (Paid / Pending)" />
+      <input id="adminFeeAmount" type="text" placeholder="Amount (e.g., ₹2000)" />
+      <input id="adminFeeDue" type="text" placeholder="Due Date" />
+      <button class="btn btn-primary" id="updateFeesBtn">Update Fees</button>
+    </div>
+
+    <div class="card" style="padding:12px;">
+      <h3>Add Remark</h3>
+      <textarea id="adminRemarkText" placeholder="Enter remark" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+      <button class="btn btn-accent" id="addRemarkBtn">Add Remark</button>
+    </div>
+
+    <div class="card" style="padding:12px;">
+      <h3>Update Subjects</h3>
+      <input id="adminSubjectName" type="text" placeholder="Subject Name" />
+      <textarea id="adminSubjectDesc" placeholder="Description / Notes" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+      <button class="btn btn-primary" id="updateSubjectBtn">Update Subject</button>
+    </div>
+
+    <button class="btn btn-danger" id="adminLogoutBtn">Logout</button>
+  </div>
+</div>
 
   <!-- Dashboard -->
   <div id="dashboardPage" class="page">
