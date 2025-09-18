@@ -19,8 +19,8 @@ body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--mute
 .title-bar p{margin:6px 0 0;font-size:13px;opacity:.95;}
 .center-wrap{min-height:calc(100vh - 86px);display:flex;align-items:center;justify-content:center;}
 .card{width:100%;max-width:420px;background:var(--panel);border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(15,23,42,0.06);border:1px solid var(--card-border);}
-input[type="text"],input[type="password"],textarea{width:100%;padding:12px 14px;margin-bottom:12px;border-radius:10px;border:1px solid #e6eef0;font-size:15px;outline:none;}
-input:focus,textarea:focus{border-color:var(--primary);}
+input[type="text"],input[type="password"],textarea,select{width:100%;padding:12px 14px;margin-bottom:12px;border-radius:10px;border:1px solid #e6eef0;font-size:15px;outline:none;}
+input:focus,textarea:focus,select:focus{border-color:var(--primary);}
 .btn{display:block;width:100%;padding:14px 16px;border-radius:12px;border:2px solid transparent;font-weight:700;font-size:16px;cursor:pointer;margin-top:6px;}
 .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary-dark);}
 .btn-primary:hover{background:var(--primary-dark);}
@@ -128,7 +128,6 @@ input:focus,textarea:focus{border-color:var(--primary);}
 </div>
 
 <script>
-// Users
 let users = JSON.parse(localStorage.getItem('users')) || [
   {id:'reo12345678912',password:'ammar.1010',name:'Reo',class:'10th',admin:true,fees:{status:'Pending',amount:'₹2000',due:'30 Sept 2025'},subjects:{Maths:'Algebra',Science:'Physics',English:'Composition'},remarks:['Good progress']},
   {id:'test-1',password:'test123',name:'Test User',class:'9th',admin:false,fees:{status:'Paid',amount:'₹1500',due:'N/A'},subjects:{Maths:'Geometry',Science:'Chemistry',English:'Grammar'},remarks:['Needs improvement in Science']}
@@ -137,7 +136,6 @@ localStorage.setItem('users',JSON.stringify(users));
 
 let currentUser = null;
 
-// Pages
 const loginPage = document.getElementById('loginPage');
 const dashboard = document.getElementById('dashboardPage');
 const subjectsPage = document.getElementById('subjectsPage');
@@ -159,34 +157,26 @@ document.getElementById('loginForm').addEventListener('submit',e=>{
   showPage(dashboard);
 });
 
-// Load student dashboard
 function loadStudentDashboard(){
   document.getElementById('greeting').textContent=`Welcome, ${currentUser.name} • ${currentUser.class}`;
-  // Show admin button only for admin
   document.getElementById('btnAdminPanel').classList.toggle('hidden',!currentUser.admin);
 }
 
-// Student buttons
+// Dashboard buttons
 document.getElementById('btnSubjects').addEventListener('click',()=>{
-  const list = document.getElementById('subjectsList');
-  list.innerHTML='';
-  for(const [k,v] of Object.entries(currentUser.subjects)){
-    const d=document.createElement('div');d.className='content-card';
-    d.innerHTML=`<h3>${k}</h3><p>${v}</p>`;list.appendChild(d);
-  }
+  const list = document.getElementById('subjectsList'); list.innerHTML='';
+  for(const [k,v] of Object.entries(currentUser.subjects)){ const d=document.createElement('div'); d.className='content-card'; d.innerHTML=`<h3>${k}</h3><p>${v}</p>`; list.appendChild(d);}
   showPage(subjectsPage);
 });
-
 document.getElementById('btnFees').addEventListener('click',()=>{
-  const f = document.getElementById('feesInfo');
-  f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
+  const f = document.getElementById('feesInfo'); f.innerHTML=`<div class="content-card"><p><strong>Status:</strong> ${currentUser.fees.status}</p><p><strong>Amount:</strong> ${currentUser.fees.amount}</p><p><strong>Due:</strong> ${currentUser.fees.due}</p></div>`;
   showPage(feesPage);
 });
-
 document.getElementById('btnRemarks').addEventListener('click',()=>{
-  const r=document.getElementById('remarksList'); r.innerHTML='';
-  currentUser.remarks.forEach(rem=>{const d=document.createElement('div');d.className='remark';d.textContent=rem;r.appendChild(d);});
-  showPage(remarksPage);
+  const r=document.getElementById('remarksList'); r.innerHTML=''; currentUser.remarks.forEach(rem=>{const d=document.createElement('div');d.className='remark';d.textContent=rem;r.appendChild(d);}); showPage(remarksPage);
+});
+document.getElementById('btnAdminPanel').addEventListener('click',()=>{
+  loadAdminStudents(); showPage(adminDashboard);
 });
 
 // Back buttons
@@ -197,66 +187,38 @@ document.getElementById('adminBack').addEventListener('click',()=>showPage(dashb
 
 // Logout
 document.getElementById('btnLogout').addEventListener('click',()=>{
-  currentUser=null;
-  document.getElementById('loginForm').reset();
-  showPage(loginPage);
+  currentUser=null; document.getElementById('loginForm').reset(); showPage(loginPage);
 });
 
-// Admin Panel
-document.getElementById('btnAdminPanel').addEventListener('click',()=>{
-  loadAdminStudents();
-  showPage(adminDashboard);
-});
-
-// Load students in dropdown
+// Admin Panel functions
 function loadAdminStudents(){
-  const sel = document.getElementById('studentSelect');
-  sel.innerHTML='<option value="">Select Student</option>';
+  const sel=document.getElementById('studentSelect'); sel.innerHTML='<option value="">Select Student</option>';
   users.forEach((u,i)=>{const o=document.createElement('option'); o.value=i; o.textContent=`${u.name} (${u.id})`; sel.appendChild(o);});
   clearAdminFields();
 }
-
 function clearAdminFields(){['feeStatus','feeAmount','feeDue','newRemark','subName','subDesc'].forEach(id=>document.getElementById(id).value='');}
-
-// Auto-fill fields when student selected
 document.getElementById('studentSelect').addEventListener('change',function(){
   const idx=this.value; if(idx===''){clearAdminFields();return;}
-  const s=users[idx];
-  document.getElementById('feeStatus').value=s.fees.status;
-  document.getElementById('feeAmount').value=s.fees.amount;
-  document.getElementById('feeDue').value=s.fees.due;
+  const s=users[idx]; document.getElementById('feeStatus').value=s.fees.status;
+  document.getElementById('feeAmount').value=s.fees.amount; document.getElementById('feeDue').value=s.fees.due;
 });
-
-// Update Fees
 document.getElementById('updateFeeBtn').addEventListener('click',()=>{
   const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
-  const fS=document.getElementById('feeStatus').value;
-  const fA=document.getElementById('feeAmount').value;
-  const fD=document.getElementById('feeDue').value;
-  users[idx].fees={status:fS,amount:fA,due:fD};
-  localStorage.setItem('users',JSON.stringify(users));
-  alert('Fees updated!');
+  users[idx].fees={status:document.getElementById('feeStatus').value,amount:document.getElementById('feeAmount').value,due:document.getElementById('feeDue').value};
+  localStorage.setItem('users',JSON.stringify(users)); alert('Fees updated!');
 });
-
-// Add Remark
 document.getElementById('addRemarkBtn').addEventListener('click',()=>{
   const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
   const r=document.getElementById('newRemark').value.trim(); if(!r){alert('Enter remark');return;}
-  users[idx].remarks.push(r); localStorage.setItem('users',JSON.stringify(users));
-  document.getElementById('newRemark').value='';
-  alert('Remark added!');
+  users[idx].remarks.push(r); localStorage.setItem('users',JSON.stringify(users)); document.getElementById('newRemark').value=''; alert('Remark added!');
 });
-
-// Update Subject
 document.getElementById('updateSubBtn').addEventListener('click',()=>{
   const idx=document.getElementById('studentSelect').value; if(idx===''){alert('Select student');return;}
-  const n=document.getElementById('subName').value.trim();
-  const d=document.getElementById('subDesc').value.trim();
+  const n=document.getElementById('subName').value.trim(); const d=document.getElementById('subDesc').value.trim();
   if(!n||!d){alert('Enter subject & description');return;}
-  users[idx].subjects[n]=d; localStorage.setItem('users',JSON.stringify(users));
-  document.getElementById('subName').value=''; document.getElementById('subDesc').value='';
-  alert('Subject updated!');
+  users[idx].subjects[n]=d; localStorage.setItem('users',JSON.stringify(users)); document.getElementById('subName').value=''; document.getElementById('subDesc').value=''; alert('Subject updated!');
 });
 </script>
+
 </body>
 </html>
