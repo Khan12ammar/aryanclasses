@@ -1,166 +1,66 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aryan Classes Portal</title>
-<style>
-:root{
-  --primary:#0f766e; --accent:#f59e0b; --muted:#374151; --bg:#fff;
-  --panel:#fbfdff; --card-border:rgba(15,118,110,0.12);
-}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--muted);}
-.page{display:none;padding:0 16px 32px;}
-.active{display:block;}
-.title-bar{text-align:center;padding:18px 12px;background:var(--primary);color:white;}
-.title-bar h1{margin:0;}
-.card{width:100%;max-width:420px;background:var(--panel);border-radius:12px;padding:22px;margin:20px auto;}
-input,select,textarea{width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid #ccc;}
-button{width:100%;padding:12px;margin-bottom:8px;border-radius:8px;border:none;color:white;cursor:pointer;}
-.btn-primary{background:var(--primary);}
-.btn-accent{background:var(--accent);}
-.btn-danger{background:#ef4444;}
-.hidden{display:none;}
-.stack{max-width:420px;margin:20px auto;display:flex;flex-direction:column;gap:10px;}
-.content-card{background:#fff;padding:12px;border:1px solid var(--card-border);border-radius:8px;margin-bottom:10px;}
-.remark{background:#fff7ed;padding:10px;border-radius:8px;margin-bottom:6px;}
-</style>
-</head>
-<body>
-
-<!-- Login Page -->
-<div id="loginPage" class="page active">
-  <div class="title-bar"><h1>Aryan Classes</h1></div>
-  <div class="card">
-    <input type="text" id="loginId" placeholder="ID">
-    <input type="password" id="loginPass" placeholder="Password">
-    <button id="loginBtn" class="btn-primary">Login</button>
-    <div id="loginError" class="hidden" style="color:red;">Wrong ID or Password</div>
-    <p>Students: test-1 / test123 | Admin: reo12345678912 / ammar.1010</p>
-  </div>
-</div>
-
-<!-- Dashboard -->
-<div id="dashboardPage" class="page">
-  <div class="title-bar"><h1>Dashboard</h1><p id="greeting"></p></div>
-  <div class="stack">
-    <button id="btnSubjects" class="btn-accent">📘 Subjects</button>
-    <button id="btnFees" class="btn-primary">💳 Fees</button>
-    <button id="btnRemarks" class="btn-primary">📝 Remarks</button>
-    <button id="btnAdmin" class="btn-accent hidden">⚙️ Admin Panel</button>
-    <button id="btnLogout" class="btn-danger">Logout</button>
-  </div>
-</div>
-
-<!-- Subjects Page -->
-<div id="subjectsPage" class="page">
-  <div class="title-bar"><h1>Subjects</h1></div>
-  <div id="subjectsList" class="stack"></div>
-  <button id="backSubjects" class="btn-primary">Back</button>
-</div>
-
-<!-- Fees Page -->
-<div id="feesPage" class="page">
-  <div class="title-bar"><h1>Fees</h1></div>
-  <div id="feesList" class="stack"></div>
-  <button id="backFees" class="btn-primary">Back</button>
-</div>
-
-<!-- Remarks Page -->
-<div id="remarksPage" class="page">
-  <div class="title-bar"><h1>Remarks</h1></div>
-  <div id="remarksList" class="stack"></div>
-  <button id="backRemarks" class="btn-primary">Back</button>
-</div>
-
-<!-- Admin Panel -->
-<div id="adminPage" class="page">
-  <div class="title-bar"><h1>Admin Panel</h1></div>
-  <div class="stack">
-    <select id="studentSelect"><option value="">Select Student</option></select>
-    <input id="feeStatus" placeholder="Fee Status">
-    <input id="feeAmount" placeholder="Fee Amount">
-    <input id="feeDue" placeholder="Due Date">
-    <textarea id="newRemark" placeholder="Add Remark"></textarea>
-    <input id="subName" placeholder="Subject Name">
-    <textarea id="subDesc" placeholder="Subject Description"></textarea>
-    <button id="updateBtn" class="btn-primary">Update Student</button>
-    <button id="backAdmin" class="btn-danger">Back</button>
-  </div>
-</div>
-
 <script>
 // Users
 let users = [
-  {id:'reo12345678912', password:'ammar.1010', name:'Reo', class:'10th', admin:true, fees:{status:'Pending',amount:'₹2000',due:'30 Sept'}, subjects:{Maths:'Algebra',Science:'Physics'}, remarks:['Good progress']},
-  {id:'test-1', password:'test123', name:'Test User', class:'9th', admin:false, fees:{status:'Paid',amount:'₹1500',due:'N/A'}, subjects:{Maths:'Geometry',Science:'Chemistry'}, remarks:['Needs improvement']},
-  {id:'affan', password:'1001', name:'khan affan', class:'9th', admin:false, fees:{status:'Paid',amount:'₹1500',due:'N/A'}, subjects:{Maths:'Geometry',Science:'Chemistry'}, remarks:['Needs improvement']},
+  {id:'reo12345678912', password:'ammar.1010', name:'Reo', class:'10th', place:'Mumbai', gr_no:'GR0001', admin:true, fees:{status:'Pending',amount:'₹2000',due:'30 Sept'}, subjects:{Maths:'Algebra',Science:'Physics'}, remarks:['Good progress']},
+  {id:'test-1', password:'test123', name:'Test User', class:'9th', place:'Mumbai', gr_no:'GR0002', admin:false, fees:{status:'Paid',amount:'₹1500',due:'N/A'}, subjects:{Maths:'Geometry',Science:'Chemistry'}, remarks:['Needs improvement']},
+
+  {id:'user001', password:'X', name:'Fuzan', class:'10th', place:'Mumbai', gr_no:'GR1001'},
+  {id:'user002', password:'✓', name:'Sharmeen', class:'10th', place:'Mumbai', gr_no:'GR1002'},
+  {id:'user003', password:'✓', name:'1Xth', class:'10th', place:'Mumbai', gr_no:'GR1003'},
+  {id:'user004', password:'', name:'Rida', class:'10th', place:'Mumbai', gr_no:'GR1004'},
+  {id:'user005', password:'X?', name:'Uzma', class:'10th', place:'Mumbai', gr_no:'GR1005'},
+  {id:'user006', password:'X', name:'Kulsum', class:'10th', place:'Mumbai', gr_no:'GR1006'},
+  {id:'user007', password:'✓', name:'Arsheen', class:'10th', place:'Mumbai', gr_no:'GR1007'},
+  {id:'user008', password:'✓', name:'Safiya', class:'10th', place:'Mumbai', gr_no:'GR1008'},
+  {id:'user009', password:'✓', name:'Zodiyfa', class:'10th', place:'Mumbai', gr_no:'GR1009'},
+  {id:'user010', password:'✓', name:'Anas', class:'10th', place:'Mumbai', gr_no:'GR1010'},
+  {id:'user011', password:'✓', name:'Akhan', class:'10th', place:'Mumbai', gr_no:'GR1011'},
+  {id:'user012', password:'✓', name:'Husnain', class:'10th', place:'Mumbai', gr_no:'GR1012'},
+  {id:'user013', password:'X', name:'Hamza', class:'10th', place:'Mumbai', gr_no:'GR1013'},
+  {id:'user014', password:'', name:'Mushab', class:'10th', place:'Mumbai', gr_no:'GR1014'},
+  {id:'user015', password:'', name:'Matur', class:'10th', place:'Mumbai', gr_no:'GR1015'},
+  {id:'user016', password:'X', name:'Zaid', class:'10th', place:'Mumbai', gr_no:'GR1016'},
+  {id:'user017', password:'X', name:'Abubakkar', class:'10th', place:'Mumbai', gr_no:'GR1017'},
+  {id:'user018', password:'', name:'Husna', class:'10th', place:'Mumbai', gr_no:'GR1018'}
 ];
+
 let currentUser = null;
 
 // Elements
-const loginPage=document.getElementById('loginPage');
-const dashboardPage=document.getElementById('dashboardPage');
-const subjectsPageElem=document.getElementById('subjectsPage');
-const feesPageElem=document.getElementById('feesPage');
-const remarksPageElem=document.getElementById('remarksPage');
-const adminPageElem=document.getElementById('adminPage');
+const loginPage = document.getElementById('loginPage');
+const dashboardPage = document.getElementById('dashboardPage');
+const subjectsPageElem = document.getElementById('subjectsPage');
+const feesPageElem = document.getElementById('feesPage');
+const remarksPageElem = document.getElementById('remarksPage');
+const adminPageElem = document.getElementById('adminPage');
 
-function show(page){[loginPage,dashboardPage,subjectsPageElem,feesPageElem,remarksPageElem,adminPageElem].forEach(p=>p.classList.remove('active')); page.classList.add('active');}
+function show(page) {
+  [loginPage, dashboardPage, subjectsPageElem, feesPageElem, remarksPageElem, adminPageElem].forEach(p => p.classList.remove('active'));
+  page.classList.add('active');
+}
 
 // Login
-document.getElementById('loginBtn').onclick=()=>{
-  const id=document.getElementById('loginId').value;
-  const pass=document.getElementById('loginPass').value;
-  const user = users.find(u=>u.id===id && u.password===pass);
-  if(!user){document.getElementById('loginError').classList.remove('hidden'); return;}
-  currentUser=user;
+document.getElementById('loginBtn').onclick = () => {
+  const id = document.getElementById('loginId').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+
+  // Find matching user
+  const user = users.find(u => u.id === id && u.password === pass);
+
+  if (!user) {
+    document.getElementById('loginError').classList.remove('hidden');
+    return;
+  }
+
+  currentUser = user;
   document.getElementById('loginError').classList.add('hidden');
-  document.getElementById('greeting').innerText=`Welcome, ${currentUser.name}`;
-  document.getElementById('btnAdmin').classList.toggle('hidden',!currentUser.admin);
+
+  // Show name + details
+  document.getElementById('greeting').innerText = 
+    `Welcome, ${currentUser.name} | Class: ${currentUser.class} | GR: ${currentUser.gr_no} | Place: ${currentUser.place}`;
+
+  document.getElementById('btnAdmin').classList.toggle('hidden', !currentUser.admin);
+
   show(dashboardPage);
 };
-
-// Logout
-document.getElementById('btnLogout').onclick=()=>{currentUser=null; show(loginPage);};
-
-// Dashboard buttons
-document.getElementById('btnSubjects').onclick=()=>{
-  const list=document.getElementById('subjectsList'); list.innerHTML='';
-  for(const [k,v] of Object.entries(currentUser.subjects)){const d=document.createElement('div');d.className='content-card'; d.innerHTML=`<h3>${k}</h3><p>${v}</p>`; list.appendChild(d);}
-  show(subjectsPageElem);
-};
-document.getElementById('btnFees').onclick=()=>{
-  const list=document.getElementById('feesList'); list.innerHTML=`<div class="content-card"><p>Status: ${currentUser.fees.status}</p><p>Amount: ${currentUser.fees.amount}</p><p>Due: ${currentUser.fees.due}</p></div>`;
-  show(feesPageElem);
-};
-document.getElementById('btnRemarks').onclick=()=>{
-  const list=document.getElementById('remarksList'); list.innerHTML=''; currentUser.remarks.forEach(r=>{const d=document.createElement('div');d.className='remark';d.textContent=r; list.appendChild(d);}); show(remarksPageElem);
-};
-document.getElementById('btnAdmin').onclick=()=>{
-  const sel=document.getElementById('studentSelect'); sel.innerHTML='<option value="">Select Student</option>';
-  users.forEach((u,i)=>{const o=document.createElement('option'); o.value=i; o.textContent=`${u.name} (${u.id})`; sel.appendChild(o);});
-  show(adminPageElem);
-};
-
-// Back buttons
-document.getElementById('backSubjects').onclick=()=>show(dashboardPage);
-document.getElementById('backFees').onclick=()=>show(dashboardPage);
-document.getElementById('backRemarks').onclick=()=>show(dashboardPage);
-document.getElementById('backAdmin').onclick=()=>show(dashboardPage);
-
-// Admin update
-document.getElementById('updateBtn').onclick=()=>{
-  const idx=document.getElementById('studentSelect').value;
-  if(idx===''){alert('Select student'); return;}
-  const s=users[idx];
-  s.fees={status:document.getElementById('feeStatus').value, amount:document.getElementById('feeAmount').value, due:document.getElementById('feeDue').value};
-  if(document.getElementById('newRemark').value){s.remarks.push(document.getElementById('newRemark').value);}
-  if(document.getElementById('subName').value && document.getElementById('subDesc').value){s.subjects[document.getElementById('subName').value]=document.getElementById('subDesc').value;}
-  alert('Student updated!');
-};
 </script>
-
-</body>
-</html>
