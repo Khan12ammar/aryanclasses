@@ -1,49 +1,65 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aryan Classes Portal</title>
-
 <style>
 :root{
-  --primary:#2563eb;
-  --primary-dark:#1e40af;
-  --accent:#22c55e;
-  --danger:#ef4444;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --bg:#f3f4f6;
-  --card:#ffffff;
+  /* BRAND COLORS */
+  --primary:#F59E0B;        /* main buttons */
+  --primary-dark:#D97706;
+  --accent:#0F766E;         /* dashboard accent */
+  --danger:#EF4444;         /* logout */
+  --admin:#1E293B;          /* admin panel */
+  --text:#1F2937;
+  --muted:#6B7280;
+  --bg:#F9FAFB;
+  --card:#FFFFFF;
   --radius:14px;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family:"Segoe UI", system-ui, -apple-system, sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
+/* PAGE HANDLING */
 .page{
   display:none;
   padding-bottom:40px;
 }
-.active{display:block}
+.active{
+  display:block;
+}
 
-/* TOP BAR */
+/* HEADER */
 .title-bar{
+  text-align:center;
   padding:18px 16px;
-  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  background:#0F766E;
   color:white;
   border-bottom-left-radius:20px;
   border-bottom-right-radius:20px;
 }
-.title-bar h1{margin:0;font-size:22px}
-.title-bar p{margin:6px 0 0;font-size:14px;opacity:.9}
+.title-bar h1{
+  margin:0;
+  font-size:35px;
 
-/* CARD */
+}
+.title-bar p{
+  margin:6px 0 0;
+  font-size:14px;
+  opacity:.9;
+}
+
+/* CARDS */
 .card{
   max-width:420px;
   margin:24px auto;
@@ -61,19 +77,23 @@ body{
 }
 
 /* INPUTS */
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:12px 14px;
   border-radius:10px;
-  border:1px solid #e5e7eb;
+  border:1px solid #E5E7EB;
   font-size:14px;
 }
-input:focus,textarea:focus,select:focus{
+input:focus,
+textarea:focus,
+select:focus{
   outline:none;
   border-color:var(--primary);
 }
 
-/* BUTTONS */
+/* BASE BUTTON */
 button{
   padding:14px;
   border-radius:12px;
@@ -81,15 +101,71 @@ button{
   font-size:15px;
   font-weight:600;
   cursor:pointer;
-  transition:.2s;
+  transition:.2s ease;
 }
-button:active{transform:scale(.97)}
+button:active{
+  transform:scale(.97);
+}
 
-.btn-primary{background:var(--primary);color:white}
-.btn-primary:hover{background:var(--primary-dark)}
+/* BUTTON TYPES */
+.btn-primary{
+  background:var(--primary);
+  color:white;
+}
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
 
-.btn-accent{background:var(--accent);color:white}
-.btn-danger{background:var(--danger);color:white}
+.btn-accent{
+  background:var(--accent);
+  color:white;
+}
+
+.btn-admin{
+  background:var(--admin);
+  color:white;
+}
+
+.btn-danger{
+  background:var(--danger);
+  color:white;
+}
+
+/* LOGIN BUTTON */
+.btn-login{
+  width:100%;
+  background:linear-gradient(135deg,var(--accent),#115E59);
+  color:white;
+  font-size:16px;
+  letter-spacing:.5px;
+}
+
+/* LOGOUT BUTTON */
+.btn-logout{
+  width:100%;
+  background:transparent;
+  color:var(--danger);
+  border:2px solid var(--danger);
+}
+.btn-logout:hover{
+  background:var(--danger);
+  color:white;
+}
+
+/* DASHBOARD BUTTONS */
+.square-btn{
+  width:100%;
+  min-height:120px;
+  border-radius:14px;
+  font-size:16px;
+}
+
+/* TWO BUTTON ROW */
+.row-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
 
 /* CONTENT CARDS */
 .content-card{
@@ -98,28 +174,25 @@ button:active{transform:scale(.97)}
   border-radius:12px;
   box-shadow:0 6px 18px rgba(0,0,0,.06);
 }
-.content-card h3{margin:0 0 6px}
+.content-card h3{
+  margin:0 0 6px;
+}
 
-/* REMARK */
+/* REMARKS */
 .remark{
-  background:#fef3c7;
-  border-left:5px solid #f59e0b;
+  background:#FEF3C7;
+  border-left:5px solid var(--primary);
   padding:12px;
   border-radius:10px;
   font-size:14px;
 }
 
-.hidden{display:none}
-
-/* FOOTER BUTTON */
-.back-btn{
-  max-width:420px;
-  margin:10px auto 0;
+/* UTILS */
+.hidden{
+  display:none;
 }
-</style>
-
+  </style>
 </head>
-
 <body>
 
 <!-- LOGIN -->
@@ -128,28 +201,28 @@ button:active{transform:scale(.97)}
   <div class="card">
     <input id="loginId" placeholder="ID">
     <input id="loginPass" type="password" placeholder="Password">
-    <button id="loginBtn" class="btn-primary">Login</button>
+    <button id="loginBtn" class="btn-login">Login</button>
     <div id="loginError" class="hidden" style="color:red;">Wrong ID or Password</div>
-
-    <!-- Demo Hint -->
-    <p>
-      Students: affan / 1001, test-1 / test123 <br>
-      Admin: reo12345678912 / ammar.1010
-    </p>
+    <p>Admin: reo12345678912 / ammar.1010</p>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboardPage" class="page">
-  <div class="title-bar">
-    <h1>Dashboard</h1>
-    <p id="greeting"></p>
-  </div>
+  <div class="title-bar"><h1>Dashboard</h1><p id="greeting"></p></div>
   <div class="stack">
-    <button id="btnSubjects" class="btn-accent">📘 Subjects</button>
-    <button id="btnFees" class="btn-primary">💳 Fees</button>
-    <button id="btnRemarks" class="btn-primary">📝 Remarks</button>
-    <button id="btnAdmin" class="btn-accent hidden">⚙️ Admin Panel</button>
+    <div class="row-2">
+      <button id="btnSubjects" class="btn-primary square-btn">📘 Subjects</button>
+      <button id="btnFees" class="btn-primary square-btn">💳 Fees</button>
+    </div>
+    <div class="row-2">
+      <button id="btnRemarks" class="btn-primary square-btn">📝 Remarks</button>
+      <button id="btnResults" class="btn-primary square-btn">📊 Test Results</button>
+    </div>
+    <div class="row-2">
+      <button id="btnAttendance" class="btn-primary square-btn">🗓️ Attendance</button>
+      <button id="btnAdmin" class="btn-accent square-btn hidden">⚙️ Admin Panel</button>
+    </div>
     <button id="btnLogout" class="btn-danger">Logout</button>
   </div>
 </div>
@@ -175,6 +248,20 @@ button:active{transform:scale(.97)}
   <button id="backRemarks" class="btn-primary">Back</button>
 </div>
 
+<!-- TEST RESULTS -->
+<div id="resultsPage" class="page">
+  <div class="title-bar"><h1>Test Results</h1></div>
+  <div id="resultsList" class="stack"></div>
+  <button id="backResults" class="btn-primary">Back</button>
+</div>
+
+<!-- ATTENDANCE -->
+<div id="attendancePage" class="page">
+  <div class="title-bar"><h1>Attendance</h1></div>
+  <div id="attendanceList" class="stack"></div>
+  <button id="backAttendance" class="btn-primary">Back</button>
+</div>
+
 <!-- ADMIN -->
 <div id="adminPage" class="page">
   <div class="title-bar"><h1>Admin Panel</h1></div>
@@ -192,265 +279,321 @@ button:active{transform:scale(.97)}
 </div>
 
 <script>
-// USERS (Affan included)
 const users = [
   {
-    id:'affan',
-    password:'1001',
-    name:'Affan',
-    class:'10th',
-    admin:false,
+    id:'affan', password:'1001', name:'Affan', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'anas',
-    password:'1002',
-    name:'Anas',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'husnain',
-    password:'1003',
-    name:'husnain',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'hamza',
-    password:'1004',
-    name:'hamza',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'mushab',
-    password:'1005',
-    name:'mushab',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'mafuz',
-    password:'1006',
-    name:'mafuz',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'zaid',
-    password:'1007',
-    name:'zaid',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'abubakkar',
-    password:'1008',
-    name:'abubakkar',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'safiya',
-    password:'1009',
-    name:'Safiya',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'husna',
-    password:'1010',
-    name:'husna',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'uzma',
-    password:'1011',
-    name:'uzma',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'kulsum',
-    password:'1012',
-    name:'husnain',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'Arsheen',
-    password:'1013',
-    name:'Arsheen',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'rida',
-    password:'1014',
-    name:'rida',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
-  },
-   {
-    id:'zobiya',
-    password:'1015',
-    name:'zobiya',
-    class:'10th',
-    admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{Maths:'Geometry',Science:'Chemistry'},
-    remarks:['Needs improvement']
+    subjects:{
+      English:'Grammar & writing',
+      Mathematics:'Algebra basics',
+      Science:'Physics numericals',
+      'Social Science':'History revision',
+      Hindi:'Grammar'
+    },
+    results:{
+      'Weekly Test 1':'78%',
+      'Monthly Test':'82%'
+    },
+    attendance:{present:22,total:26},
+    remarks:['Good improvement']
   },
   {
-    id:'reo12345678912',
-    password:'ammar.1010',
-    name:'Reo',
-    class:'10th',
-    admin:true,
+    id:'anas', password:'1002', name:'Anas', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Writing skills',
+      Mathematics:'Linear equations',
+      Science:'Chemistry basics',
+      'Social Science':'Civics',
+      Hindi:'Writing'
+    },
+    results:{'Weekly Test':'75%'},
+    attendance:{present:20,total:26},
+    remarks:['Needs practice']
+  },
+  {
+    id:'husnain', password:'1003', name:'Husnain', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Comprehension',
+      Mathematics:'Algebra',
+      Science:'Biology',
+      'Social Science':'Geography',
+      Hindi:'Grammar'
+    },
+    results:{'Monthly Test':'80%'},
+    attendance:{present:24,total:26},
+    remarks:['Very regular']
+  },
+  {
+    id:'hamza', password:'1004', name:'Hamza', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Polynomials',
+      Science:'Physics',
+      'Social Science':'History',
+      Hindi:'Writing'
+    },
+    results:{'Weekly Test':'70%'},
+    attendance:{present:18,total:26},
+    remarks:['Irregular']
+  },
+  {
+    id:'mushab', password:'1005', name:'Mushab', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Trigonometry',
+      Science:'Chemistry',
+      'Social Science':'Economics',
+      Hindi:'Grammar'
+    },
+    results:{'Monthly Test':'85%'},
+    attendance:{present:25,total:26},
+    remarks:['Excellent']
+  },
+  {
+    id:'mafuz', password:'1006', name:'Mafuz', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Writing',
+      Mathematics:'Geometry',
+      Science:'Physics',
+      'Social Science':'Civics',
+      Hindi:'Grammar'
+    },
+    results:{'Weekly Test':'68%'},
+    attendance:{present:17,total:26},
+    remarks:['Needs focus']
+  },
+  {
+    id:'zaid', password:'1007', name:'Zaid', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Algebra',
+      Science:'Biology',
+      'Social Science':'History',
+      Hindi:'Writing'
+    },
+    results:{'Monthly Test':'88%'},
+    attendance:{present:26,total:26},
+    remarks:['Topper']
+  },
+  {
+    id:'abubakkar', password:'1008', name:'Abubakkar', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Statistics',
+      Science:'Chemistry',
+      'Social Science':'Geography',
+      Hindi:'Grammar'
+    },
+    results:{'Weekly Test':'72%'},
+    attendance:{present:21,total:26},
+    remarks:['Average']
+  },
+  {
+    id:'safiya', password:'1009', name:'Safiya', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Writing',
+      Mathematics:'Algebra',
+      Science:'Biology',
+      'Social Science':'Civics',
+      Hindi:'Grammar'
+    },
+    results:{'Monthly Test':'90%'},
+    attendance:{present:25,total:26},
+    remarks:['Excellent']
+  },
+  {
+    id:'husna', password:'1010', name:'Husna', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Geometry',
+      Science:'Physics',
+      'Social Science':'History',
+      Hindi:'Writing'
+    },
+    results:{'Weekly Test':'74%'},
+    attendance:{present:22,total:26},
+    remarks:['Good']
+  },
+  {
+    id:'uzma', password:'1011', name:'Uzma', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Comprehension',
+      Mathematics:'Polynomials',
+      Science:'Chemistry',
+      'Social Science':'Economics',
+      Hindi:'Grammar'
+    },
+    results:{'Monthly Test':'79%'},
+    attendance:{present:23,total:26},
+    remarks:['Consistent']
+  },
+  {
+    id:'kulsum', password:'1012', name:'Kulsum', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Writing',
+      Mathematics:'Statistics',
+      Science:'Biology',
+      'Social Science':'Geography',
+      Hindi:'Grammar'
+    },
+    results:{'Weekly Test':'76%'},
+    attendance:{present:20,total:26},
+    remarks:['Needs revision']
+  },
+  {
+    id:'arsheen', password:'1013', name:'Arsheen', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Algebra',
+      Science:'Physics',
+      'Social Science':'Civics',
+      Hindi:'Writing'
+    },
+    results:{'Monthly Test':'83%'},
+    attendance:{present:24,total:26},
+    remarks:['Very good']
+  },
+  {
+    id:'rida', password:'1014', name:'Rida', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Writing',
+      Mathematics:'Geometry',
+      Science:'Chemistry',
+      'Social Science':'History',
+      Hindi:'Grammar'
+    },
+    results:{'Weekly Test':'71%'},
+    attendance:{present:19,total:26},
+    remarks:['Irregular']
+  },
+  {
+    id:'zobiya', password:'1015', name:'Zobiya', admin:false,
+    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
+    subjects:{
+      English:'Grammar',
+      Mathematics:'Algebra',
+      Science:'Biology',
+      'Social Science':'Economics',
+      Hindi:'Writing'
+    },
+    results:{'Monthly Test':'86%'},
+    attendance:{present:24,total:26},
+    remarks:['Good performance']
+  },
+  {
+    id:'reo12345678912', password:'ammar.1010', name:'Reo', admin:true,
     fees:{status:'Pending',amount:'₹2000',due:'30 Sept'},
-    subjects:{Maths:'Algebra',Science:'Physics'},
-    remarks:['Good progress']
+    subjects:{
+      English:'—',
+      Mathematics:'—',
+      Science:'—',
+      'Social Science':'—',
+      Hindi:'—'
+    },
+    results:{'Overall':'Excellent'},
+    attendance:{present:26,total:26},
+    remarks:['Admin']
   }
 ];
 
 let currentUser = null;
-
-const pages = [
-  loginPage,dashboardPage,subjectsPage,feesPage,remarksPage,adminPage
-];
-
-function show(page){
-  pages.forEach(p=>p.classList.remove('active'));
-  page.classList.add('active');
-}
+const pages = [loginPage,dashboardPage,subjectsPage,feesPage,remarksPage,resultsPage,attendancePage,adminPage];
+const show=p=>{pages.forEach(x=>x.classList.remove("active"));p.classList.add("active");};
 
 // LOGIN
-loginBtn.onclick = () => {
-  const id = loginId.value.trim();
-  const pass = loginPass.value.trim();
-  const user = users.find(u => u.id === id && u.password === pass);
-
-  if(!user){
-    loginError.classList.remove('hidden');
-    return;
-  }
-  loginError.classList.add('hidden');
-  currentUser = user;
-  greeting.innerText = `Welcome, ${user.name}`;
-  btnAdmin.classList.toggle('hidden', !user.admin);
+loginBtn.onclick=()=>{
+  const id=loginId.value.trim().toLowerCase();
+  const pass=loginPass.value.trim();
+  const user=users.find(u=>u.id.toLowerCase()===id && u.password===pass);
+  if(!user){loginError.classList.remove("hidden");return;}
+  loginError.classList.add("hidden");
+  currentUser=user;
+  greeting.innerText=`Welcome, ${user.name}`;
+  btnAdmin.classList.toggle("hidden",!user.admin);
   show(dashboardPage);
 };
 
 // LOGOUT
-btnLogout.onclick = () => {
-  currentUser = null;
-  show(loginPage);
-};
+btnLogout.onclick=()=>show(loginPage);
 
 // SUBJECTS
-btnSubjects.onclick = () => {
-  subjectsList.innerHTML = '';
+btnSubjects.onclick=()=>{
+  subjectsList.innerHTML="";
   for(const [k,v] of Object.entries(currentUser.subjects)){
-    subjectsList.innerHTML += `<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
+    subjectsList.innerHTML+=`<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
   }
   show(subjectsPage);
 };
 
 // FEES
-btnFees.onclick = () => {
-  feesList.innerHTML = `
-    <div class="content-card">
-      <p>Status: ${currentUser.fees.status}</p>
-      <p>Amount: ${currentUser.fees.amount}</p>
-      <p>Due: ${currentUser.fees.due}</p>
-    </div>`;
+btnFees.onclick=()=>{
+  feesList.innerHTML=`<div class="content-card"><p>Status: ${currentUser.fees.status}</p><p>Amount: ${currentUser.fees.amount}</p><p>Due: ${currentUser.fees.due}</p></div>`;
   show(feesPage);
 };
 
 // REMARKS
-btnRemarks.onclick = () => {
-  remarksList.innerHTML='';
-  currentUser.remarks.forEach(r=>{
-    remarksList.innerHTML+=`<div class="remark">${r}</div>`;
-  });
+btnRemarks.onclick=()=>{
+  remarksList.innerHTML="";
+  currentUser.remarks.forEach(r=>remarksList.innerHTML+=`<div class="remark">${r}</div>`);
   show(remarksPage);
 };
 
-// ADMIN
-btnAdmin.onclick = () => {
+// TEST RESULTS
+btnResults.onclick=()=>{
+  resultsList.innerHTML="";
+  for(const [k,v] of Object.entries(currentUser.results)){
+    resultsList.innerHTML+=`<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
+  }
+  show(resultsPage);
+};
+
+// ATTENDANCE
+btnAttendance.onclick=()=>{
+  attendanceList.innerHTML="";
+  for(const [k,v] of Object.entries(currentUser.attendance)){
+    attendanceList.innerHTML+=`<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
+  }
+  show(attendancePage);
+};
+
+// ADMIN PANEL
+btnAdmin.onclick=()=>{
   studentSelect.innerHTML='<option value="">Select Student</option>';
-  users.forEach((u,i)=>{
-    studentSelect.innerHTML+=`<option value="${i}">${u.name} (${u.id})</option>`;
-  });
+  users.forEach((u,i)=>studentSelect.innerHTML+=`<option value="${i}">${u.name} (${u.id})</option>`);
   show(adminPage);
 };
 
-// BACK
+// BACK BUTTONS
 backSubjects.onclick=()=>show(dashboardPage);
 backFees.onclick=()=>show(dashboardPage);
 backRemarks.onclick=()=>show(dashboardPage);
+backResults.onclick=()=>show(dashboardPage);
+backAttendance.onclick=()=>show(dashboardPage);
 backAdmin.onclick=()=>show(dashboardPage);
 
-// UPDATE
-updateBtn.onclick = () => {
-  const i = studentSelect.value;
-  if(i===''){alert('Select student');return;}
-  const s = users[i];
-
-  s.fees = {
-    status:feeStatus.value,
-    amount:feeAmount.value,
-    due:feeDue.value
-  };
-  if(newRemark.value) s.remarks.push(newRemark.value);
-  if(subName.value && subDesc.value) s.subjects[subName.value]=subDesc.value;
-
-  alert('Student updated!');
+// UPDATE STUDENT
+updateBtn.onclick=()=>{
+  const i=studentSelect.value;
+  if(i===''){alert("Select student");return;}
+  const s=users[i];
+  s.fees={status:feeStatus.value,amount:feeAmount.value,due:feeDue.value};
+  if(subName.value && subDesc.value)s.subjects[subName.value]=subDesc.value;
+  if(newRemark.value)s.remarks.push(newRemark.value);
+  alert("Updated!");
 };
 </script>
-
 </body>
 </html>
