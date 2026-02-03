@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -45,8 +45,6 @@ body{
   padding:18px 16px;
   background:#0F766E;
   color:white;
-  border-bottom-left-radius:20px;
-  border-bottom-right-radius:20px;
 }
 .title-bar h1{
   margin:0;
@@ -146,10 +144,12 @@ button:active{
   background:transparent;
   color:var(--danger);
   border:2px solid var(--danger);
+  justify-content: center;
 }
 .btn-logout:hover{
   background:var(--danger);
   color:white;
+  align:center;
 }
 
 /* DASHBOARD BUTTONS */
@@ -266,16 +266,34 @@ button:active{
 <div id="adminPage" class="page">
   <div class="title-bar"><h1>Admin Panel</h1></div>
   <div class="stack">
-    <select id="studentSelect"><option value="">Select Student</option></select>
-    <input id="feeStatus" placeholder="Fee Status">
-    <input id="feeAmount" placeholder="Fee Amount">
-    <input id="feeDue" placeholder="Due Date">
-    <textarea id="newRemark" placeholder="Add Remark"></textarea>
-    <input id="subName" placeholder="Subject Name">
-    <textarea id="subDesc" placeholder="Subject Description"></textarea>
-    <button id="updateBtn" class="btn-primary">Update Student</button>
-    <button id="backAdmin" class="btn-danger">Back</button>
-  </div>
+  <select id="studentSelect">
+    <option value="">Select Student</option>
+  </select>
+
+  <h3>📘 Subjects</h3>
+  <input id="subName" placeholder="Subject Name (e.g. Mathematics)">
+  <textarea id="subDesc" placeholder="Subject Details / Chapter"></textarea>
+<input type="file" id="subPhoto" accept="image/*">
+
+  <h3>💳 Fees</h3>
+  <input id="feeStatus" placeholder="Fee Status (Paid / Pending)">
+  <input id="feeAmount" placeholder="Fee Amount">
+  <input id="feeDue" placeholder="Due Date">
+
+  <h3>📊 Test Result</h3>
+  <input id="testName" placeholder="Test Name (e.g. Unit Test)">
+  <input id="testScore" placeholder="Score (e.g. 85%)">
+
+  <h3>🗓️ Attendance</h3>
+  <input id="attPresent" placeholder="Days Present">
+  <input id="attTotal" placeholder="Total Days">
+
+  <h3>📝 Remark</h3>
+  <textarea id="newRemark" placeholder="Add Remark"></textarea>
+
+  <button id="updateBtn" class="btn-primary">Update Student</button>
+  <button id="backAdmin" class="btn-logout">Back</button>
+</div>
 </div>
 
 <script>
@@ -284,16 +302,13 @@ const users = [
     id:'affan', password:'1001', name:'Affan', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar & writing',
-      Mathematics:'Algebra basics',
-      Science:'Physics numericals',
-      'Social Science':'History revision',
-      Hindi:'Grammar'
+      English:{desc:'Grammar & writing',photo:''},
+      Mathematics:{desc:'Algebra basics',photo:''},
+      Science:{desc:'Physics numericals',photo:''},
+      'Social Science':{desc:'History revision',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
-    results:{
-      'Weekly Test 1':'78%',
-      'Monthly Test':'82%'
-    },
+    results:{'Weekly Test 1':'78%','Monthly Test':'82%'},
     attendance:{present:22,total:26},
     remarks:['Good improvement']
   },
@@ -301,11 +316,11 @@ const users = [
     id:'anas', password:'1002', name:'Anas', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Writing skills',
-      Mathematics:'Linear equations',
-      Science:'Chemistry basics',
-      'Social Science':'Civics',
-      Hindi:'Writing'
+      English:{desc:'Writing skills',photo:''},
+      Mathematics:{desc:'Linear equations',photo:''},
+      Science:{desc:'Chemistry basics',photo:''},
+      'Social Science':{desc:'Civics',photo:''},
+      Hindi:{desc:'Writing',photo:''}
     },
     results:{'Weekly Test':'75%'},
     attendance:{present:20,total:26},
@@ -315,11 +330,11 @@ const users = [
     id:'husnain', password:'1003', name:'Husnain', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Comprehension',
-      Mathematics:'Algebra',
-      Science:'Biology',
-      'Social Science':'Geography',
-      Hindi:'Grammar'
+      English:{desc:'Comprehension',photo:''},
+      Mathematics:{desc:'Algebra',photo:''},
+      Science:{desc:'Biology',photo:''},
+      'Social Science':{desc:'Geography',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
     results:{'Monthly Test':'80%'},
     attendance:{present:24,total:26},
@@ -329,11 +344,11 @@ const users = [
     id:'hamza', password:'1004', name:'Hamza', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar',
-      Mathematics:'Polynomials',
-      Science:'Physics',
-      'Social Science':'History',
-      Hindi:'Writing'
+      English:{desc:'Grammar',photo:''},
+      Mathematics:{desc:'Polynomials',photo:''},
+      Science:{desc:'Physics',photo:''},
+      'Social Science':{desc:'History',photo:''},
+      Hindi:{desc:'Writing',photo:''}
     },
     results:{'Weekly Test':'70%'},
     attendance:{present:18,total:26},
@@ -343,11 +358,11 @@ const users = [
     id:'mushab', password:'1005', name:'Mushab', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar',
-      Mathematics:'Trigonometry',
-      Science:'Chemistry',
-      'Social Science':'Economics',
-      Hindi:'Grammar'
+      English:{desc:'Grammar',photo:''},
+      Mathematics:{desc:'Trigonometry',photo:''},
+      Science:{desc:'Chemistry',photo:''},
+      'Social Science':{desc:'Economics',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
     results:{'Monthly Test':'85%'},
     attendance:{present:25,total:26},
@@ -357,11 +372,11 @@ const users = [
     id:'mafuz', password:'1006', name:'Mafuz', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Writing',
-      Mathematics:'Geometry',
-      Science:'Physics',
-      'Social Science':'Civics',
-      Hindi:'Grammar'
+      English:{desc:'Writing',photo:''},
+      Mathematics:{desc:'Geometry',photo:''},
+      Science:{desc:'Physics',photo:''},
+      'Social Science':{desc:'Civics',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
     results:{'Weekly Test':'68%'},
     attendance:{present:17,total:26},
@@ -371,11 +386,11 @@ const users = [
     id:'zaid', password:'1007', name:'Zaid', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar',
-      Mathematics:'Algebra',
-      Science:'Biology',
-      'Social Science':'History',
-      Hindi:'Writing'
+      English:{desc:'Grammar',photo:''},
+      Mathematics:{desc:'Algebra',photo:''},
+      Science:{desc:'Biology',photo:''},
+      'Social Science':{desc:'History',photo:''},
+      Hindi:{desc:'Writing',photo:''}
     },
     results:{'Monthly Test':'88%'},
     attendance:{present:26,total:26},
@@ -385,11 +400,11 @@ const users = [
     id:'abubakkar', password:'1008', name:'Abubakkar', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar',
-      Mathematics:'Statistics',
-      Science:'Chemistry',
-      'Social Science':'Geography',
-      Hindi:'Grammar'
+      English:{desc:'Grammar',photo:''},
+      Mathematics:{desc:'Statistics',photo:''},
+      Science:{desc:'Chemistry',photo:''},
+      'Social Science':{desc:'Geography',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
     results:{'Weekly Test':'72%'},
     attendance:{present:21,total:26},
@@ -399,11 +414,11 @@ const users = [
     id:'safiya', password:'1009', name:'Safiya', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Writing',
-      Mathematics:'Algebra',
-      Science:'Biology',
-      'Social Science':'Civics',
-      Hindi:'Grammar'
+      English:{desc:'Writing',photo:''},
+      Mathematics:{desc:'Algebra',photo:''},
+      Science:{desc:'Biology',photo:''},
+      'Social Science':{desc:'Civics',photo:''},
+      Hindi:{desc:'Grammar',photo:''}
     },
     results:{'Monthly Test':'90%'},
     attendance:{present:25,total:26},
@@ -413,95 +428,25 @@ const users = [
     id:'husna', password:'1010', name:'Husna', admin:false,
     fees:{status:'Paid',amount:'₹10500',due:'N/A'},
     subjects:{
-      English:'Grammar',
-      Mathematics:'Geometry',
-      Science:'Physics',
-      'Social Science':'History',
-      Hindi:'Writing'
+      English:{desc:'Grammar',photo:''},
+      Mathematics:{desc:'Geometry',photo:''},
+      Science:{desc:'Physics',photo:''},
+      'Social Science':{desc:'History',photo:''},
+      Hindi:{desc:'Writing',photo:''}
     },
     results:{'Weekly Test':'74%'},
     attendance:{present:22,total:26},
     remarks:['Good']
   },
   {
-    id:'uzma', password:'1011', name:'Uzma', admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{
-      English:'Comprehension',
-      Mathematics:'Polynomials',
-      Science:'Chemistry',
-      'Social Science':'Economics',
-      Hindi:'Grammar'
-    },
-    results:{'Monthly Test':'79%'},
-    attendance:{present:23,total:26},
-    remarks:['Consistent']
-  },
-  {
-    id:'kulsum', password:'1012', name:'Kulsum', admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{
-      English:'Writing',
-      Mathematics:'Statistics',
-      Science:'Biology',
-      'Social Science':'Geography',
-      Hindi:'Grammar'
-    },
-    results:{'Weekly Test':'76%'},
-    attendance:{present:20,total:26},
-    remarks:['Needs revision']
-  },
-  {
-    id:'arsheen', password:'1013', name:'Arsheen', admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{
-      English:'Grammar',
-      Mathematics:'Algebra',
-      Science:'Physics',
-      'Social Science':'Civics',
-      Hindi:'Writing'
-    },
-    results:{'Monthly Test':'83%'},
-    attendance:{present:24,total:26},
-    remarks:['Very good']
-  },
-  {
-    id:'rida', password:'1014', name:'Rida', admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{
-      English:'Writing',
-      Mathematics:'Geometry',
-      Science:'Chemistry',
-      'Social Science':'History',
-      Hindi:'Grammar'
-    },
-    results:{'Weekly Test':'71%'},
-    attendance:{present:19,total:26},
-    remarks:['Irregular']
-  },
-  {
-    id:'zobiya', password:'1015', name:'Zobiya', admin:false,
-    fees:{status:'Paid',amount:'₹10500',due:'N/A'},
-    subjects:{
-      English:'Grammar',
-      Mathematics:'Algebra',
-      Science:'Biology',
-      'Social Science':'Economics',
-      Hindi:'Writing'
-    },
-    results:{'Monthly Test':'86%'},
-    attendance:{present:24,total:26},
-    remarks:['Good performance']
-  },
-  {
-    id:'reo12345678912', password:'ammar.1010', name:'Reo', admin:true,
+    id:'reo', password:'1', name:'Reo', admin:true,
     fees:{status:'Pending',amount:'₹2000',due:'30 Sept'},
     subjects:{
-      English:'—',
-      Mathematics:'—',
-      Science:'—',
-      'Social Science':'—',
-      Hindi:'—'
+      English:{desc:'—',photo:''},
+      Mathematics:{desc:'—',photo:''},
+      Science:{desc:'—',photo:''},
+      'Social Science':{desc:'—',photo:''},
+      Hindi:{desc:'—',photo:''}
     },
     results:{'Overall':'Excellent'},
     attendance:{present:26,total:26},
@@ -527,16 +472,29 @@ loginBtn.onclick=()=>{
 };
 
 // LOGOUT
-btnLogout.onclick=()=>show(loginPage);
+btnLogout.onclick = () => {
+  currentUser = null;
+  loginId.value = "";
+  loginPass.value = "";
+  show(loginPage);
+};
+
 
 // SUBJECTS
 btnSubjects.onclick=()=>{
   subjectsList.innerHTML="";
   for(const [k,v] of Object.entries(currentUser.subjects)){
-    subjectsList.innerHTML+=`<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
+    subjectsList.innerHTML += `
+      <div class="content-card">
+        <h3>${k}</h3>
+        <p>${v.desc}</p>
+        ${v.photo ? `<img src="${v.photo}" style="width:100%;border-radius:10px;margin-top:8px">` : ``}
+      </div>
+    `;
   }
   show(subjectsPage);
 };
+
 
 // FEES
 btnFees.onclick=()=>{
@@ -564,7 +522,12 @@ btnResults.onclick=()=>{
 btnAttendance.onclick=()=>{
   attendanceList.innerHTML="";
   for(const [k,v] of Object.entries(currentUser.attendance)){
-    attendanceList.innerHTML+=`<div class="content-card"><h3>${k}</h3><p>${v}</p></div>`;
+    attendanceList.innerHTML = `
+  <div class="content-card">
+    <h3>Attendance</h3>
+    <p>Present: ${currentUser.attendance.present}</p>
+    <p>Total Days: ${currentUser.attendance.total}</p>
+`;
   }
   show(attendancePage);
 };
@@ -585,15 +548,85 @@ backAttendance.onclick=()=>show(dashboardPage);
 backAdmin.onclick=()=>show(dashboardPage);
 
 // UPDATE STUDENT
-updateBtn.onclick=()=>{
-  const i=studentSelect.value;
-  if(i===''){alert("Select student");return;}
-  const s=users[i];
-  s.fees={status:feeStatus.value,amount:feeAmount.value,due:feeDue.value};
-  if(subName.value && subDesc.value)s.subjects[subName.value]=subDesc.value;
-  if(newRemark.value)s.remarks.push(newRemark.value);
-  alert("Updated!");
+updateBtn.onclick = () => {
+  const i = studentSelect.value;
+  if(i === ""){
+    alert("Select a student");
+    return;
+  }
+
+  const s = users[i];
+
+  /* SUBJECTS */
+ /* SUBJECTS WITH PHOTO */
+if(subName.value && subDesc.value){
+  const file = document.getElementById("subPhoto").files[0];
+
+ if(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    s.subjects[subName.value] = {
+      desc: subDesc.value,
+      photo: reader.result
+    };
+    alert("✅ Student updated successfully");
+  };
+  reader.readAsDataURL(file);
+  return;
+}
+  else {
+    s.subjects[subName.value] = {
+      desc: subDesc.value,
+      photo: s.subjects[subName.value]?.photo || ""
+    };
+  }
+}
+
+
+  /* FEES */
+  if(feeStatus.value || feeAmount.value || feeDue.value){
+    s.fees = {
+      status: feeStatus.value || s.fees.status,
+      amount: feeAmount.value || s.fees.amount,
+      due: feeDue.value || s.fees.due
+    };
+  }
+
+  /* TEST RESULTS */
+  if(testName.value && testScore.value){
+    s.results[testName.value] = testScore.value;
+  }
+
+  /* ATTENDANCE */
+  if(attPresent.value && attTotal.value){
+    s.attendance = {
+      present: attPresent.value,
+      total: attTotal.value
+    };
+  }
+
+  /* REMARKS */
+  if(newRemark.value){
+    s.remarks.push(newRemark.value);
+  }
+
+  /* CLEAR INPUTS */
+  subName.value = "";
+  subDesc.value = "";
+  subPhoto.value = "";
+  feeStatus.value = "";
+  feeAmount.value = "";
+  feeDue.value = "";
+  testName.value = "";
+  testScore.value = "";
+  attPresent.value = "";
+  attTotal.value = "";
+  newRemark.value = "";
+
+  alert("✅ Student updated successfully");
 };
+
+
 </script>
 </body>
 </html>
