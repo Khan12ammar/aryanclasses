@@ -257,10 +257,15 @@ button:active{
 
 <!-- ATTENDANCE -->
 <div id="attendancePage" class="page">
-  <div class="title-bar"><h1>Attendance</h1></div>
+  <div class="title-bar">
+    <h1>Attendance</h1>
+  </div>
+
   <div id="attendanceList" class="stack"></div>
+
   <button id="backAttendance" class="btn-primary">Back</button>
 </div>
+
 
 <!-- ADMIN -->
 <div id="adminPage" class="page">
@@ -284,9 +289,10 @@ button:active{
   <input id="testName" placeholder="Test Name (e.g. Unit Test)">
   <input id="testScore" placeholder="Score (e.g. 85%)">
 
-  <h3>🗓️ Attendance</h3>
-  <input id="attPresent" placeholder="Days Present">
-  <input id="attTotal" placeholder="Total Days">
+ <h3>🗓️ Attendance</h3>
+<input id="attPresent" type="number" placeholder="Days Present">
+<input id="attTotal" type="number" placeholder="Total Working Days">
+
 
   <h3>📝 Remark</h3>
   <textarea id="newRemark" placeholder="Add Remark"></textarea>
@@ -519,18 +525,31 @@ btnResults.onclick=()=>{
 };
 
 // ATTENDANCE
-btnAttendance.onclick=()=>{
-  attendanceList.innerHTML="";
-  for(const [k,v] of Object.entries(currentUser.attendance)){
-    attendanceList.innerHTML = `
-  <div class="content-card">
-    <h3>Attendance</h3>
-    <p>Present: ${currentUser.attendance.present}</p>
-    <p>Total Days: ${currentUser.attendance.total}</p>
-`;
-  }
+// ATTENDANCE VIEW
+btnAttendance.onclick = () => {
+  attendanceList.innerHTML = `
+    <div class="content-card">
+      <h3>Days Present</h3>
+      <p>${currentUser.attendance.present}</p>
+    </div>
+
+    <div class="content-card">
+      <h3>Total Days</h3>
+      <p>${currentUser.attendance.total}</p>
+    </div>
+
+    <div class="content-card">
+      <h3>Attendance %</h3>
+      <p>
+        ${Math.round(
+          (currentUser.attendance.present / currentUser.attendance.total) * 100
+        )}%
+      </p>
+    </div>
+  `;
   show(attendancePage);
 };
+
 
 // ADMIN PANEL
 btnAdmin.onclick=()=>{
