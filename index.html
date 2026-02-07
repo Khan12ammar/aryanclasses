@@ -6,12 +6,11 @@
 <title>Aryan Classes Portal</title>
 <style>
 :root{
-  /* BRAND COLORS */
-  --primary:#F59E0B;        /* main buttons */
+  --primary:#F59E0B;
   --primary-dark:#D97706;
-  --accent:#0F766E;         /* dashboard accent */
-  --danger:#EF4444;         /* logout */
-  --admin:#1E293B;          /* admin panel */
+  --accent:#0F766E;
+  --danger:#EF4444;
+  --admin:#020617;
   --text:#1F2937;
   --muted:#6B7280;
   --bg:#F9FAFB;
@@ -25,46 +24,33 @@
 
 body{
   margin:0;
-  font-family:"Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family:"Segoe UI", system-ui, sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
-/* PAGE HANDLING */
-.page{
-  display:none;
-  padding-bottom:40px;
-}
-.active{
-  display:block;
-}
+/* PAGE CONTROL */
+.page{display:none;padding-bottom:40px;}
+.page.active{display:block;}
 
 /* HEADER */
 .title-bar{
   text-align:center;
-  padding:18px 16px;
+  padding:18px;
   background:#0F766E;
   color:white;
 }
-.title-bar h1{
-  margin:0;
-  font-size:35px;
+.title-bar h1{margin:0;font-size:32px;}
+.title-bar p{margin-top:6px;font-size:14px;opacity:.9;}
 
-}
-.title-bar p{
-  margin:6px 0 0;
-  font-size:14px;
-  opacity:.9;
-}
-
-/* CARDS */
+/* CARD */
 .card{
   max-width:420px;
   margin:24px auto;
   background:var(--card);
   padding:22px;
-  border-radius:var(--radius);
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  border-radius:18px;
+  box-shadow:0 12px 28px rgba(0,0,0,.08);
 }
 
 .stack{
@@ -75,123 +61,162 @@ body{
 }
 
 /* INPUTS */
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:12px 14px;
-  border-radius:10px;
+  border-radius:12px;
   border:1px solid #E5E7EB;
   font-size:14px;
 }
-input:focus,
-textarea:focus,
-select:focus{
+input:focus,textarea:focus,select:focus{
   outline:none;
-  border-color:var(--primary);
+  border-color:#14B8A6;
+  box-shadow:0 0 0 3px rgba(20,184,166,.25);
 }
 
 /* BASE BUTTON */
 button{
-  padding:14px;
-  border-radius:12px;
+  padding:16px;
   border:none;
-  height:100px;
-  font-size:15px;
+  font-size:16px;
   font-weight:600;
   cursor:pointer;
-  transition:.2s ease;
+  transition:.25s ease;
 }
-button:active{
-  transform:scale(.97);
-}
-
-/* BUTTON TYPES */
-.btn-primary{
-  background:var(--primary);
-  color:white;
-}
-.btn-primary:hover{
-  background:var(--primary-dark);
-}
-
-.btn-accent{
-  background:var(--accent);
-  color:white;
-}
-
-.btn-admin{
-  background:var(--admin);
-  color:white;
-}
-
-.btn-danger{
-  background:var(--danger);
-  color:white;
-}
+button:active{transform:scale(.95);}
 
 /* LOGIN BUTTON */
-.btn-login{
+#loginBtn{
   width:100%;
-  background:linear-gradient(135deg,var(--accent),#115E59);
+  background:linear-gradient(135deg,#0F766E,#14B8A6);
   color:white;
-  font-size:16px;
-  letter-spacing:.5px;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:.6px;
+  border-radius:999px;
+  box-shadow:0 12px 35px rgba(20,184,166,.5);
+  position:relative;
+  overflow:hidden;
 }
+#loginBtn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  left:-100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+  transition:.6s;
+}
+#loginBtn:hover::after{left:100%;}
 
-/* LOGOUT BUTTON */
-.btn-logout{
-  width:100%;
-  background:transparent;
-  color:var(--danger);
-  border:2px solid var(--danger);
-  justify-content: center;
-}
-.btn-logout:hover{
-  background:var(--danger);
-  color:white;
-  align:center;
-}
-
-/* DASHBOARD BUTTONS */
-.square-btn{
-  width:100%;
-  min-height:120px;
-  border-radius:14px;
-  font-size:16px;
-}
-
-/* TWO BUTTON ROW */
+/* DASHBOARD GRID */
 .row-2{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-
-/* CONTENT CARDS */
-.content-card{
-  background:var(--card);
-  padding:16px;
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
+.square-btn{
+  min-height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
-.content-card h3{
-  margin:0 0 6px;
+
+/* SUBJECTS */
+#btnSubjects{
+  background:linear-gradient(135deg,#3B82F6,#1D4ED8);
+  color:white;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(59,130,246,.4);
+}
+
+/* FEES */
+#btnFees{
+  background:linear-gradient(135deg,#22C55E,#15803D);
+  color:white;
+  border-radius:10px;
+  box-shadow:0 8px 20px rgba(34,197,94,.4);
 }
 
 /* REMARKS */
+#btnRemarks{
+  background:#FEF3C7;
+  color:#92400E;
+  border-left:6px solid #F59E0B;
+  border-radius:14px;
+}
+
+/* RESULTS */
+#btnResults{
+  background:linear-gradient(135deg,#8B5CF6,#6D28D9);
+  color:white;
+  border-radius:999px;
+  box-shadow:0 10px 30px rgba(139,92,246,.45);
+}
+
+/* ATTENDANCE */
+#btnAttendance{
+  background:repeating-linear-gradient(
+    45deg,
+    #0F766E,
+    #0F766E 10px,
+    #115E59 10px,
+    #115E59 20px
+  );
+  color:white;
+  border-radius:12px;
+}
+
+/* ADMIN PANEL */
+#btnAdmin{
+  background:#020617;
+  color:#F8FAFC;
+  border:2px solid #64748B;
+  border-radius:4px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+/* LOGOUT */
+#btnLogout{
+  background:transparent;
+  color:#EF4444;
+  border:2px dashed #EF4444;
+  border-radius:20px;
+}
+#btnLogout:hover{
+  background:#EF4444;
+  color:white;
+}
+
+/* BACK BUTTONS */
+.btn-back{
+  background:#E5E7EB;
+  color:#374151;
+  border-radius:12px;
+}
+
+/* CONTENT */
+.content-card{
+  background:white;
+  padding:16px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+.content-card h3{margin:0 0 6px;}
+
+/* REMARK BOX */
 .remark{
   background:#FEF3C7;
-  border-left:5px solid var(--primary);
+  border-left:5px solid #F59E0B;
   padding:12px;
   border-radius:10px;
   font-size:14px;
 }
 
 /* UTILS */
-.hidden{
-  display:none;
-}
+.hidden{display:none;}
+
   </style>
 </head>
 <body>
@@ -619,10 +644,11 @@ if(subName.value && subDesc.value){
 
   /* ATTENDANCE */
   if(attPresent.value && attTotal.value){
-    s.attendance = {
-      present: attPresent.value,
-      total: attTotal.value
-    };
+   s.attendance = {
+  present: Number(attPresent.value),
+  total: Number(attTotal.value)
+};
+
   }
 
   /* REMARKS */
